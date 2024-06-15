@@ -25,24 +25,24 @@ void AdminMain::mostrar(GestorVentanas& gestor) {
     hide_cursor();
 
     change_color(240);
-    rectangle(50, 22, 35, 2);
+    rectangle(50, 27, 35, 1);
 
     change_color(244);
-    gotoxy(53, 3);
+    gotoxy(53, 2);
     std::cout << "MENU DE ADMIN";
 
     change_color(240);
-    gotoxy(36, 4);
+    gotoxy(36, 3);
     std::cout << "------------------------------------------------";
-    gotoxy(37, 5);
+    gotoxy(37, 4);
     std::cout << "BIENVENIDO ADMIN";
-    gotoxy(40, 7);
+    gotoxy(40, 6);
     std::cout << "ESCOGE LA ACTIVIDAD QUE DESEA VERIFICAR:";
 
     change_color(241);
-    gotoxy(40, 23);
+    gotoxy(40, 27);
     std::cout << "UTILIZE LAS FLECHAS PARA SELECCIONAR LAS";
-    gotoxy(48, 24);
+    gotoxy(48, 28);
     std::cout << "OPCIONES (ARRIBA Y ABAJO)";
 }
 
@@ -53,140 +53,90 @@ void AdminMain::seleccionar_opcion(GestorVentanas& gestor) {
         if (tecla == 72 && opc > 1) {
             opc--;
         }
-        if (tecla == 80 && opc < 4) {
+        if (tecla == 80 && opc < 6) {
             opc++;
         }
 
         switch (opc) {
-            //$ LAPTOPS
+            //$ GESTIONAR LAPTOPS
             case 1:
                 change_color(241);
-                gotoxy(48, 9);
-                std::cout << "+-----------------------+";
-                gotoxy(46, 10);
-                std::cout << "->|       Verificar       |";
-                gotoxy(48, 11);
-                std::cout << "+-----------------------+";
+                button(25, 1, 48, 8, "Gestionar Laptops");
                 change_color(240);
 
-                gotoxy(48, 12);
-                std::cout << "+-----------------------+";
-                gotoxy(46, 13);
-                std::cout << "  |       Sanciones       |";
-                gotoxy(48, 14);
-                std::cout << "+-----------------------+";
-
-                gotoxy(48, 15);
-                std::cout << "+-----------------------+";
-                gotoxy(46, 16);
-                std::cout << "  |      Estadisticas     |";
-                gotoxy(48, 17);
-                std::cout << "+-----------------------+";
-
-                gotoxy(48, 18);
-                std::cout << "+-----------------------+";
-                gotoxy(46, 19);
-                std::cout << "  |         Salir         |";
-                gotoxy(48, 20);
-                std::cout << "+-----------------------+";
+                button(25, 1, 48, 11, "Gestionar Cubiculos");
+                button(25, 1, 48, 14, "Verificar Reserva");
+                button(25, 1, 48, 17, "Consultar Sanciones");
+                button(25, 1, 48, 20, "Ver Estadisticas");
+                button(25, 1, 48, 23, "Salir");
                 break;
 
-            //$ CUBICULOS
+            //$ GESTIONAR CUBICULOS
             case 2:
-                gotoxy(48, 9);
-                std::cout << "+-----------------------+";
-                gotoxy(46, 10);
-                std::cout << "  |       Verificar       |";
-                gotoxy(48, 11);
-                std::cout << "+-----------------------+";
+                button(25, 1, 48, 8, "Gestionar Laptops");
 
                 change_color(241);
-                gotoxy(48, 12);
-                std::cout << "+-----------------------+";
-                gotoxy(46, 13);
-                std::cout << "->|       Sanciones       |";
-                gotoxy(48, 14);
-                std::cout << "+-----------------------+";
+                button(25, 1, 48, 11, "Gestionar Cubiculos");
                 change_color(240);
 
-                gotoxy(48, 15);
-                std::cout << "+-----------------------+";
-                gotoxy(46, 16);
-                std::cout << "  |      Estadisticas     |";
-                gotoxy(48, 17);
-                std::cout << "+-----------------------+";
-
-                gotoxy(48, 18);
-                std::cout << "+-----------------------+";
-                gotoxy(46, 19);
-                std::cout << "  |         Salir         |";
-                gotoxy(48, 20);
-                std::cout << "+-----------------------+";
+                button(25, 1, 48, 14, "Verificar Reserva");
+                button(25, 1, 48, 17, "Consultar Sanciones");
+                button(25, 1, 48, 20, "Ver Estadisticas");
+                button(25, 1, 48, 23, "Salir");
                 break;
 
-            //$ RESERVAS HECHAS
+            //$ VERIFICAR RESERVAS
             case 3:
-                gotoxy(48, 9);
-                std::cout << "+-----------------------+";
-                gotoxy(46, 10);
-                std::cout << "  |       Verificar       |";
-                gotoxy(48, 11);
-                std::cout << "+-----------------------+";
-
-                gotoxy(48, 12);
-                std::cout << "+-----------------------+";
-                gotoxy(46, 13);
-                std::cout << "  |       Sanciones       |";
-                gotoxy(48, 14);
-                std::cout << "+-----------------------+";
+                button(25, 1, 48, 8, "Gestionar Laptops");
+                button(25, 1, 48, 11, "Gestionar Cubiculos");
 
                 change_color(241);
-
-                gotoxy(48, 15);
-                std::cout << "+-----------------------+";
-                gotoxy(46, 16);
-                std::cout << "->|      Estadisticas     |";
-                gotoxy(48, 17);
-                std::cout << "+-----------------------+";
-
+                button(25, 1, 48, 14, "Verificar Reserva");
                 change_color(240);
-                gotoxy(48, 18);
-                std::cout << "+-----------------------+";
-                gotoxy(46, 19);
-                std::cout << "  |         Salir         |";
-                gotoxy(48, 20);
-                std::cout << "+-----------------------+";
+
+                button(25, 1, 48, 17, "Consultar Sanciones");
+                button(25, 1, 48, 20, "Ver Estadisticas");
+                button(25, 1, 48, 23, "Salir");
+                break;
+            
+            //$ CONSULTAR SANCIONES
+            case 4:
+                button(25, 1, 48, 8, "Gestionar Laptops");
+                button(25, 1, 48, 11, "Gestionar Cubiculos");
+                button(25, 1, 48, 14, "Verificar Reserva");
+
+                change_color(241);
+                button(25, 1, 48, 17, "Consultar Sanciones");
+                change_color(240);
+
+                button(25, 1, 48, 20, "Ver Estadisticas");
+                button(25, 1, 48, 23, "Salir");
                 break;
 
-            case 4:
-                gotoxy(48, 9);
-                std::cout << "+-----------------------+";
-                gotoxy(46, 10);
-                std::cout << "  |       Verificar       |";
-                gotoxy(48, 11);
-                std::cout << "+-----------------------+";
-
-                gotoxy(48, 12);
-                std::cout << "+-----------------------+";
-                gotoxy(46, 13);
-                std::cout << "  |       Sanciones       |";
-                gotoxy(48, 14);
-                std::cout << "+-----------------------+";
-
-                gotoxy(48, 15);
-                std::cout << "+-----------------------+";
-                gotoxy(46, 16);
-                std::cout << "  |      Estadisticas     |";
-                gotoxy(48, 17);
-                std::cout << "+-----------------------+";
+            //$ VER ESTADISTICAS
+            case 5:
+                button(25, 1, 48, 8, "Gestionar Laptops");
+                button(25, 1, 48, 11, "Gestionar Cubiculos");
+                button(25, 1, 48, 14, "Verificar Reserva");
+                button(25, 1, 48, 17, "Consultar Sanciones");
 
                 change_color(241);
-                gotoxy(48, 18);
-                std::cout << "+-----------------------+";
-                gotoxy(46, 19);
-                std::cout << "->|         Salir         |";
-                gotoxy(48, 20);
-                std::cout << "+-----------------------+";
+                button(25, 1, 48, 20, "Ver Estadisticas");
+                change_color(240);
+
+                button(25, 1, 48, 23, "Salir");
+                break;
+
+            //$ SALIR
+            case 6:
+                button(25, 1, 48, 8, "Gestionar Laptops");
+                button(25, 1, 48, 11, "Gestionar Cubiculos");
+                button(25, 1, 48, 14, "Verificar Reserva");
+                button(25, 1, 48, 17, "Consultar Sanciones");
+                button(25, 1, 48, 20, "Ver Estadisticas");
+
+                change_color(241);
+                button(25, 1, 48, 23, "Salir");
                 change_color(240);
                 break;
         }
@@ -200,13 +150,27 @@ void AdminMain::seleccionar_opcion(GestorVentanas& gestor) {
     int result;
 
     switch (opc) {
+        //$ GESTIONAR LAPTOPS
         case 1:
+            gestor.cambiar_ventana(Ventanas::GESTIONARLAPTOPS);
+            break;
+
+        //$ GESTIONAR CUBICULOS
+        case 2:
+            break;
+
+        //$ VERIFICAR RESERVAS
+        case 3:
             gestor.cambiar_ventana(Ventanas::ADMINVERIFICAR);
             break;
-        case 2:
+
+        //$ CONSULTAR SANCIONES
+        case 4:
             sanciones(gestor);
             break;
-        case 3:
+
+        //$ VER ESTADISTICAS
+        case 5:
             //gestor.cambiar_ventana(Ventanas::ADMINSTATIC);
             filePath = "Estadistica.xlsx";
 
@@ -216,7 +180,9 @@ void AdminMain::seleccionar_opcion(GestorVentanas& gestor) {
             // Ejecutar el comando
             result = std::system(command.c_str());
             break;
-        case 4:
+
+        //$ SALIR
+        case 6:
             gestor.cambiar_ventana(Ventanas::MAINWINDOW);
             break;
     }

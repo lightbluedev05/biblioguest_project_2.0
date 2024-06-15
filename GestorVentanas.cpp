@@ -38,6 +38,9 @@ void GestorVentanas::iniciar(){
       case Ventanas::ADMINVERIFICAR:
         admin_verificar->main(*this);
         break;
+      case Ventanas::GESTIONARLAPTOPS:
+        gestionar_laptops->main(*this);
+        break;
     }
   }
 }
