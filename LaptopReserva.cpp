@@ -10,13 +10,16 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <ctime>
 
 using namespace std;
 
 string LaptopReserva::codigo_laptop;
 string LaptopReserva::horario_laptop;
+string LaptopReserva::codigo_reserva;
 vector<vector<string>> LaptopReserva::horarios_data;
 vector<vector<string>> LaptopReserva::reservas_data;
+vector<vector<string>> LaptopReserva::reservas_historial;
 vector<vector<int>> LaptopReserva::historial;
 
 void LaptopReserva::mostrar(){
@@ -425,6 +428,74 @@ void LaptopReserva::ejecutar_reserva(GestorVentanas& gestor, int laptop, int hor
     file_3<<"\n";
   }
   file_3.close();
+
+    ifstream file_5("reservas_history.csv");
+    string linea_5;
+
+    LaptopReserva::reservas_historial.clear();
+
+    // Leer datos desde el archivo CSV y almacenar en reservas_historial
+    while (getline(file_5, linea_5)) {
+        vector<string> reservas = {};
+        string reserva = "";
+        stringstream ss(linea_5);
+
+        while (getline(ss, reserva, ',')) {
+            reservas.push_back(reserva);
+        }
+
+        LaptopReserva::reservas_historial.push_back(reservas);
+    }
+
+    file_5.close();
+
+    srand(time(0));
+
+    bool encontrado = true;
+    while (encontrado) {
+        // Generar código de reserva aleatorio
+        LaptopReserva::codigo_reserva = "";
+        string caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        for (int i = 0; i < 5; ++i) {
+            int indiceAleatorio = rand() % caracteres.length();
+            LaptopReserva::codigo_reserva += caracteres[indiceAleatorio];
+        }
+
+        encontrado = false;
+        // Verificar si el código de reserva generado ya existe en el historial
+        for (int i = 0; i < LaptopReserva::reservas_historial.size(); i++) {
+            if (LaptopReserva::reservas_historial[i][0] == LaptopReserva::codigo_reserva) {
+                encontrado = true;
+                break;
+            }
+        }
+    }
+
+    // Obtener la fecha y hora actual
+    time_t tiempoActual = time(NULL);
+    tm* tiempoLocal = localtime(&tiempoActual);
+    int diaActual = tiempoLocal->tm_mday;
+    int mesActual = tiempoLocal->tm_mon + 1;
+    int anioActual = tiempoLocal->tm_year + 1900;
+
+    // Crear nueva reserva con los datos actuales
+    vector<string> nuevaReserva = {LaptopReserva::codigo_reserva, LaptopReserva::codigo_laptop, "gestor.codigo", LaptopReserva::horario_laptop, to_string(diaActual), to_string(mesActual), to_string(anioActual)};
+    LaptopReserva::reservas_historial.push_back(nuevaReserva);
+
+    // Guardar los datos actualizados en el archivo "reservas_history.csv"
+    ofstream file_6("reservas_history.csv");
+
+    for (int i = 0; i < LaptopReserva::reservas_historial.size(); i++) {
+        for (int j = 0; j < LaptopReserva::reservas_historial[i].size(); j++) {
+            file_6 << LaptopReserva::reservas_historial[i][j];
+            if (j < LaptopReserva::reservas_historial[i].size() - 1) {
+                file_6 << ",";
+            }
+        }
+        file_6 << "\n";
+    }
+
+    file_6.close();
 }
 
 void LaptopReserva::main(GestorVentanas& gestor){

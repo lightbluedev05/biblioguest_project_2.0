@@ -1,6 +1,6 @@
 C0001,0,0,0,0,0,0
 C0002,0,0,0,0,0,0
-L101,0,0,0,0,0,0,,,,habilitado
+L101,1,0,0,0,0,0,,,,habilitado
 L102,0,0,0,0,0,0,17 10ma,rtx,16 gb,habilitado
 L103,0,0,0,0,0,0,amd,gtx,8 gb,Mantenimiento
 L0001,0,0,0,0,0,0,,,,habilitado
