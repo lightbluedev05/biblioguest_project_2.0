@@ -132,7 +132,7 @@ void MainWindow::borrar(GestorVentanas& gestor){
   }
   file2.close();
 
-  ofstream file3("horarios_data.csv");
+  ofstream file3("horarios_data1.csv"); //arreglar
   for(int t=0; t<h_data.size(); t++){
     file3<<h_data[t][0]<<",0,0,0,0,0,0"<<endl;
   }
