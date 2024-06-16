@@ -479,7 +479,7 @@ void LaptopReserva::ejecutar_reserva(GestorVentanas& gestor, int laptop, int hor
     int anioActual = tiempoLocal->tm_year + 1900;
 
     // Crear nueva reserva con los datos actuales
-    vector<string> nuevaReserva = {LaptopReserva::codigo_reserva, LaptopReserva::codigo_laptop, "gestor.codigo", LaptopReserva::horario_laptop, to_string(diaActual), to_string(mesActual), to_string(anioActual)};
+    vector<string> nuevaReserva = {LaptopReserva::codigo_reserva, LaptopReserva::codigo_laptop, gestor.codigo, LaptopReserva::horario_laptop, to_string(diaActual), to_string(mesActual), to_string(anioActual)};
     LaptopReserva::reservas_historial.push_back(nuevaReserva);
 
     // Guardar los datos actualizados en el archivo "reservas_history.csv"
