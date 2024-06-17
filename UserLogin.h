@@ -12,7 +12,7 @@ class UserLogin {
     void ingresar_credenciales(GestorVentanas& gestor);
     void seleccionar_opcion(GestorVentanas& gestor);
     void validar_credenciales(GestorVentanas& gestor);
-    static std::vector<std::vector<int>> historial_sanciones;
+    static std::vector<std::vector<std::string>> historial_sanciones;
     static std::string sanciones;
     
     void main(GestorVentanas& gestor);

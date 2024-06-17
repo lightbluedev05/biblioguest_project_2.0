@@ -13,6 +13,8 @@ class UserMain{
     static std::string horario_laptop;
     static std::string horario_cubiculo;
     static std::vector<std::vector<int>> historial_sanciones;
+    static std::string codigo_reserva;
+    static std::vector<std::vector<std::string>> reservas_historial;
     void mostrar(GestorVentanas& gestor);
     void mostrar_reservas(GestorVentanas& gestor);
     void cancelar_reserva(GestorVentanas& gestor);

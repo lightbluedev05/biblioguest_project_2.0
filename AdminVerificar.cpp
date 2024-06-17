@@ -96,7 +96,7 @@ void AdminVerificar::ingresar_codigo(GestorVentanas& gestor){
         gotoxy(67,7);
         cin >> AdminVerificar::codigo_estudiante;
         for (int i = 0; i < users.size(); i++) {
-          if (stoi(users[i].cod) == stoi(AdminVerificar::codigo_estudiante)) {
+          if (users[i].cod == AdminVerificar::codigo_estudiante) {
               AdminVerificar::codigo_encontrado = "si";
               AdminVerificar::aux = i;
               break;
