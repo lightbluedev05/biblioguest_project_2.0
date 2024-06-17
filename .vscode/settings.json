@@ -52,7 +52,6 @@
     "complex": "cpp",
     "map": "cpp",
     "set": "cpp",
-    "cinttypes": "cpp",
-    "iomanip": "cpp"
+    "cinttypes": "cpp"
   }
 }
