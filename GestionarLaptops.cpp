@@ -115,11 +115,27 @@ void GestionarLaptops::cantidad_laptops(){
 
     //$ CANTIDAD DE NUEVAS LAPTOPS
     int numero_laptops;
+    gotoxy(65, 9);
     cin>>numero_laptops;
 
     //$ SELECCION DE MODO DE CREACION (AUTOMATICA O MANUAL)
-    int opc;
-    cin>>opc;
+    int tecla=75, opc=1;
+    while(tecla!=13){
+      if(tecla==75){
+        change_color(241);
+        button(14, 1, 47, 14, "Automatico");
+        change_color(240);
+        button(14, 1, 64, 14, "Manual");
+        opc=1;
+      } else if (tecla==77){
+        button(14, 1, 47, 14, "Automatico");
+        change_color(241);
+        button(14, 1, 64, 14, "Manual");
+        change_color(240);
+        opc=2;
+      }
+      tecla=_getch();
+    }
 
     if(opc==1){
       //** AUTOMATICO **
@@ -142,17 +158,68 @@ void GestionarLaptops::cantidad_laptops(){
     } else {
       //** MANUAL **
       for(int i=0; i<numero_laptops; i++){
-        system("cls");
+        //! PINTADO DE MANUAL
         string codigo;
-        int opc;
 
-        gotoxy(0,0);
-        cout<<"LAPTOP NRO"<<(i+1)<<endl;
-        cout<<"CODIGO: ";
-        cin>>codigo;
+        do{
+          change_color(112);
+          system("cls");
+          change_color(240);
+          rectangle(83, 20, 19, 4);
 
-        cout<<"AUTO(1) O MANUAL (0): ";
-        cin>>opc;
+          change_color(244);
+          gotoxy(56,6);
+          cout<<"LAPTOP NRO"<<(i+1);
+          change_color(240);
+
+          gotoxy(50, 9);
+          cout<<"CODIGO: ";
+          rectangle(7, 1, 58, 8);
+          gotoxy(59,9);
+          cout<<"L";
+
+          gotoxy(36, 12);
+          cout<<"Como desea crear las especificaciones de esta laptop?";
+
+          button(16,1,40,14, "Automatico");
+          button(16,1,65,14, "Manual");
+
+          if(codigo.size()>4){
+            change_color(244);
+            gotoxy(70,8);
+            cout<<"CODIGO MUY LARGO";
+            change_color(240);
+          }
+
+          change_color(241);
+          gotoxy(30, 23);
+          cout<<"'AUTOMATICO' hara que las laptops no tengan especificaciones";
+          gotoxy(29, 24);
+          cout<<"'MANUAL' hara que escribas las especificaciones de las laptops";
+          change_color(240);
+
+          gotoxy(60,9);
+          cin>>codigo;
+        } while (codigo.size()>4);
+        
+        //!ELECCION DE ESPECIFICAIONES (AUTO O MANUAL)
+        int tecla=75, opc=1;
+        while(tecla!=13){
+          if(tecla==75){
+            change_color(241);
+            button(16,1,40,14, "Automatico");
+            change_color(240);
+            button(16,1,65,14, "Manual");
+            opc=1;
+          } else if (tecla==77){
+            button(16,1,40,14, "Automatico");
+            change_color(241);
+            button(16,1,65,14, "Manual");
+            change_color(240);
+            opc=2;
+          }
+          tecla=_getch();
+        }
 
         if(opc==1){
           //* CARACTERISTICAS AUTOMATICAS*
@@ -181,14 +248,38 @@ void GestionarLaptops::cantidad_laptops(){
           for(int j=0; j<6; j++){
             laptop.push_back("0");
           }
-          cout<<"PROCESADOR: ";
-          cin.ignore();
-          getline(cin, procesador);
-          cout<<"GRAFICA: ";
-          getline(cin, grafica);
-          cout<<"RAM: ";
-          getline(cin, ram);
-
+          
+            cin.ignore();
+          do{
+            gotoxy(35,20);
+            cout<<"                    ";
+            gotoxy(35,18);
+            cout<<"PROCESADOR";
+            rectangle(13, 1, 34, 19);
+            gotoxy(35,20);
+            getline(cin, procesador);
+          } while(procesador.size()>11);
+          
+          do{
+            gotoxy(55,20);
+            cout<<"                    ";
+            gotoxy(57, 18);
+            cout<<"GRAFICA";
+            rectangle(13, 1, 54, 19);
+            gotoxy(55,20);
+            getline(cin, grafica);
+          } while(grafica.size()>11);
+          
+          do{
+            gotoxy(75,20);
+            cout<<"                   ";
+            gotoxy(79, 18);
+            cout<<"RAM";
+            rectangle(13, 1, 74, 19);
+            gotoxy(75,20);
+            getline(cin, ram);
+          } while(ram.size()>11);
+          
           laptop.push_back(""+procesador+"");
           laptop.push_back(""+grafica+"");
           laptop.push_back(""+ram+"");
@@ -215,7 +306,6 @@ void GestionarLaptops::cantidad_laptops(){
 
     file2.close();
 
-    getch();
   }
 }
 
@@ -242,8 +332,31 @@ void GestionarLaptops::añadir_laptop(){
   //$ PINTADO DE VENTANA
   change_color(112);
   system("cls");
-  gotoxy(0,0);
-  show_cursor();
+
+  change_color(240);
+  rectangle(83, 18, 19, 4);
+
+  change_color(244);
+  gotoxy(55, 6);
+  cout<<"AÑADIR LAPTOPS";
+  change_color(240);
+
+  rectangle(6, 1, 64, 8);
+  gotoxy(48, 9);
+  cout<<"Nro de laptops:";
+
+  gotoxy(52, 12);
+  cout<<"Elige modo de creacion...";
+
+  button(14, 1, 47, 14, "Automatico");
+  button(14, 1, 64, 14, "Manual");
+
+  change_color(241);  
+  gotoxy(23,20);
+  cout<<"'AUTOMATICO' hara que las laptops inicien desde L0001, sin especificaciones";
+  gotoxy(40,21);
+  cout<<"'MANUAL' te permitira especificar para cada laptop";
+  change_color(240);
 
   //$ CANTIDAD DE LAPTOPS A AÑADIR
   int numero_laptops;
