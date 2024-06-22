@@ -8,6 +8,7 @@ class GestionarLaptops{
   public:
     void mostrar();
     void seleccionar_opcion(GestorVentanas& gestor);
+    void ver_laptops();
     void cantidad_laptops();
     void añadir_laptop();
     void editar_laptop();
