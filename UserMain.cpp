@@ -353,6 +353,50 @@ void UserMain::cancelar_reserva(GestorVentanas& gestor){
             file_3<<"\n";
           }
           file_3.close();
+
+
+          ifstream file_51("reservas_history.csv");
+          string linea_51;
+
+          UserMain::reservas_historial.clear();
+
+          // Leer datos desde el archivo CSV y almacenar en reservas_historial
+          while (getline(file_51, linea_51)) {
+              vector<string> reservas = {};
+              string reserva = "";
+              stringstream ss(linea_51);
+
+              while (getline(ss, reserva, ',')) {
+                  reservas.push_back(reserva);
+              }
+
+              UserMain::reservas_historial.push_back(reservas);
+          }
+
+          file_51.close();
+
+        for (int i = 0; i < UserMain::reservas_historial.size(); i++) {
+            if (UserMain::reservas_historial[i][0] == UserMain::codigo_reserva) {
+                UserMain::reservas_historial.erase(UserMain::reservas_historial.begin() + i);
+                break;
+            }
+        }
+
+        ofstream file_6("reservas_history.csv");
+
+        for (int i = 0; i < UserMain::reservas_historial.size(); i++) {
+            for (int j = 0; j < UserMain::reservas_historial[i].size(); j++) {
+                file_6 << UserMain::reservas_historial[i][j];
+                if (j < UserMain::reservas_historial[i].size() - 1) {
+                    file_6 << ",";
+                }
+            }
+            file_6 << "\n";
+        }
+
+        file_6.close();  
+
+
       }
       break;
 

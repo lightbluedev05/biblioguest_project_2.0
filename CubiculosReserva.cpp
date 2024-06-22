@@ -12,13 +12,16 @@
 #include <vector>
 
 
+
 using namespace std;
 
 //$ INICIALIZACION
 string CubiculosReserva::codigo_cubiculo;
 string CubiculosReserva::horario_cubiculo;
+string CubiculosReserva::codigo_reserva;
 vector<vector<string>> CubiculosReserva::horarios_data;
 vector<vector<string>> CubiculosReserva::reservas_data;
+vector<vector<string>> CubiculosReserva::reservas_historial;
 vector<vector<int>> CubiculosReserva::historial;
 
 
@@ -355,6 +358,8 @@ void CubiculosReserva::comprobacion_de_datos(GestorVentanas& gestor){
       ejecutar_reserva(gestor, linea, horario_aux);
       gotoxy(45, 12);
       cout<<"RESERVA EJECUTADA CON EXITO :)";
+      gotoxy(40, 15);
+      cout<<"CODIGO DE RESERVA: "<<CubiculosReserva::codigo_reserva;
       change_color(241);
       gotoxy(41,13);
       cout<<"PRESIONE CUALQUIER TECLA PARA CONTINUAR";
@@ -385,6 +390,49 @@ void CubiculosReserva::comprobacion_de_datos(GestorVentanas& gestor){
 }
 
 void CubiculosReserva::ejecutar_reserva(GestorVentanas& gestor, int laptop, int horario){
+
+  ifstream file_5("reservas_history.csv");
+  string linea_5;
+
+  CubiculosReserva::reservas_historial.clear();
+
+  // Leer datos desde el archivo CSV y almacenar en reservas_historial
+  while (getline(file_5, linea_5)) {
+      vector<string> reservas = {};
+      string reserva = "";
+      stringstream ss(linea_5);
+
+      while (getline(ss, reserva, ',')) {
+          reservas.push_back(reserva);
+      }
+
+      CubiculosReserva::reservas_historial.push_back(reservas);
+  }
+
+  file_5.close();
+
+  srand(time(0));
+
+  bool encontrado = true;
+  while (encontrado) {
+      // Generar código de reserva aleatorio
+      CubiculosReserva::codigo_reserva = "";
+      string caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+      for (int i = 0; i < 5; ++i) {
+          int indiceAleatorio = rand() % caracteres.length();
+          CubiculosReserva::codigo_reserva += caracteres[indiceAleatorio];
+      }
+
+      encontrado = false;
+      // Verificar si el código de reserva generado ya existe en el historial
+      for (int i = 0; i < CubiculosReserva::reservas_historial.size(); i++) {
+          if (CubiculosReserva::reservas_historial[i][0] == CubiculosReserva::codigo_reserva) {
+              encontrado = true;
+              break;
+          }
+      }
+  }
+  
   ofstream file("horarios_data.csv");
   
   vector<vector<string>> data = CubiculosReserva::horarios_data;
@@ -404,7 +452,7 @@ void CubiculosReserva::ejecutar_reserva(GestorVentanas& gestor, int laptop, int 
   file.close();
 
   ofstream file_2("reservas_data.csv", ios::app);
-  file_2<<CubiculosReserva::codigo_cubiculo<<","<<CubiculosReserva::horario_cubiculo<<","<<gestor.codigo<<"\n";
+  file_2<<CubiculosReserva::codigo_cubiculo<<","<<CubiculosReserva::horario_cubiculo<<","<<gestor.codigo<<","<<CubiculosReserva::codigo_reserva<<"\n";
   file_2.close();
 
   for(int i = 0; i < CubiculosReserva::historial.size(); i++) {
@@ -427,6 +475,31 @@ void CubiculosReserva::ejecutar_reserva(GestorVentanas& gestor, int laptop, int 
     file_3<<"\n";
   }
   file_3.close();
+
+
+  time_t tiempoActual = time(NULL);
+  tm* tiempoLocal = localtime(&tiempoActual);
+  int diaActual = tiempoLocal->tm_mday;
+  int mesActual = tiempoLocal->tm_mon + 1;
+  int anioActual = tiempoLocal->tm_year + 1900;
+
+  vector<string> nuevaReserva = {CubiculosReserva::codigo_reserva, CubiculosReserva::codigo_cubiculo, gestor.codigo, CubiculosReserva::horario_cubiculo, to_string(diaActual), to_string(mesActual), to_string(anioActual), "NO"};
+  CubiculosReserva::reservas_historial.push_back(nuevaReserva);
+
+  ofstream file_6("reservas_history.csv");
+
+  for (int i = 0; i < CubiculosReserva::reservas_historial.size(); i++) {
+      for (int j = 0; j < CubiculosReserva::reservas_historial[i].size(); j++) {
+          file_6 << CubiculosReserva::reservas_historial[i][j];
+          if (j < CubiculosReserva::reservas_historial[i].size() - 1) {
+              file_6 << ",";
+          }
+      }
+      file_6 << "\n";
+  }
+
+  file_6.close();
+
 }
 
 void CubiculosReserva::main(GestorVentanas& gestor){
