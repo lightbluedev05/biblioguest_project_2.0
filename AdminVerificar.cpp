@@ -10,16 +10,10 @@
 #include <cstdlib>
 
 using namespace std;
-
-struct User {
-    string cod;
-    string contra;
-    string nombre;
-};
-
-vector<User> users;
 string AdminVerificar::codigo_estudiante;
 string AdminVerificar::codigo_encontrado;
+string AdminVerificar::codigo_busqueda;
+vector<vector<string>> AdminVerificar::reservas_historial;
 char AdminVerificar::letra;
 int AdminVerificar::aux;
 
@@ -40,19 +34,6 @@ void AdminVerificar::mostrar(GestorVentanas& gestor){
     cout << "Codigo del estudiante: #";
     rectangle(15, 1, 66, 6);
 
-    rectangle(15, 1, 39, 10);
-    //+4
-    gotoxy(43,11);
-    cout << "Laptops";
-
-    rectangle(15, 1, 67, 10);
-    //+3
-    gotoxy(70,11);
-    cout << "Cubiculos";
-
-    gotoxy(57,11);
-    cout << "<----->";
-
     rectangle(15, 1, 43, 22);
     gotoxy(46,23);
     cout << "CONFIRMAR";
@@ -70,21 +51,21 @@ void AdminVerificar::mostrar(GestorVentanas& gestor){
 }
 
 void AdminVerificar::ingresar_codigo(GestorVentanas& gestor){
-    ifstream archivo("datos.txt");
+    vector<vector<string>> data_entrada;
+    string linea_entrada;
+    ifstream fileentrada("reservas_data.csv");
 
-    string line;
+    while(getline(fileentrada, linea_entrada)) {
+        vector<string> horariosentrada = {};
+        string horarioentrada = "";
+        stringstream ss(linea_entrada);
 
-    while (getline(archivo, line)) {
-        istringstream iss(line);
-        User u;
-
-        iss >> u.cod >> u.contra;
-        getline(iss, u.nombre);
-
-        users.push_back(u);
+        while(getline(ss, horarioentrada, ',')) {
+            horariosentrada.push_back(horarioentrada);
+        }
+        data_entrada.push_back(horariosentrada);
     }
-
-    archivo.close();
+    fileentrada.close();
 
     AdminVerificar::codigo_encontrado = "no";
 
@@ -94,7 +75,7 @@ void AdminVerificar::ingresar_codigo(GestorVentanas& gestor){
 
         if (contador > 0) {
             change_color(244);
-            gotoxy(85,7);
+            gotoxy(56,11);
             cout<<"ERROR";
             change_color(240);
         }
@@ -102,8 +83,8 @@ void AdminVerificar::ingresar_codigo(GestorVentanas& gestor){
         cout << "             ";
         gotoxy(67,7);
         cin >> AdminVerificar::codigo_estudiante;
-        for (int i = 0; i < users.size(); i++) {
-          if (users[i].cod == AdminVerificar::codigo_estudiante) {
+        for (int i = 0; i < data_entrada.size(); i++) {
+          if (data_entrada[i][3] == AdminVerificar::codigo_estudiante) {
               AdminVerificar::codigo_encontrado = "si";
               AdminVerificar::aux = i;
               break;
@@ -112,7 +93,7 @@ void AdminVerificar::ingresar_codigo(GestorVentanas& gestor){
         contador++;
     } while (AdminVerificar::codigo_encontrado == "no");
     change_color(250);
-    gotoxy(83,7);
+    gotoxy(56,11);
     cout<<"CORRECTO";
     change_color(240);
     hide_cursor();
@@ -121,44 +102,9 @@ void AdminVerificar::ingresar_codigo(GestorVentanas& gestor){
 }
 
 void AdminVerificar::opciones(GestorVentanas& gestor){
-  int opc=1, tecla=75;
-  while(tecla!=13){
-    switch(tecla){
-			case 75:
-        change_color(241);
-        rectangle(15, 1, 39, 10);
-        //+4
-        gotoxy(43,11);
-        cout << "Laptops";
-        change_color(240);
-
-        rectangle(15, 1, 67, 10);
-        //+3
-        gotoxy(70,11);
-        cout << "Cubiculos";
-
-				opc=0;
-				break;
-			case 77:
-        rectangle(15, 1, 39, 10);
-        //+4
-        gotoxy(43,11);
-        cout << "Laptops";
-
-        change_color(241);
-        rectangle(15, 1, 67, 10);
-        //+3
-        gotoxy(70,11);
-        cout << "Cubiculos";
-        change_color(240);
-				
-				opc=1;
-				break;
-		}
-    tecla = _getch();
-  }
-    string codigo_cubiculo="", horario_cubiculo="", codigo_alumno="";
-    string codigo_laptop="", horario_laptop="";
+    int opcaux;
+    string codigo_cubiculo="", horario="", codigo_alumno="";
+    string codigo_laptop="";
 
     //* CONSEGUIR DATA DE RESERVAS
     vector<vector<string>> data;
@@ -179,99 +125,65 @@ void AdminVerificar::opciones(GestorVentanas& gestor){
 
     //* BUSCAR Y ASIGNAR RESERVA DEL DIA DE HOY
     for(int i=0; i<data.size(); i++){
-      if(data[i][2]==AdminVerificar::codigo_estudiante){
+      if(data[i][3]==AdminVerificar::codigo_estudiante){
         codigo_alumno = data[i][2];
-        if(data[i][0][1]=='A'){
+        AdminVerificar::codigo_busqueda = data[i][2];
+        if(data[i][0][0]=='C'){
           codigo_cubiculo = data[i][0];
-          horario_cubiculo = data[i][1];
-        } else {
+          horario = data[i][1];
+          opcaux=0;
+          AdminVerificar::letra = 'C';
+        } else if (data[i][0][0]=='L'){
           codigo_laptop = data[i][0];
-          horario_laptop = data[i][1];
+          horario = data[i][1];
+          opcaux=1;
+          AdminVerificar::letra = 'L';
         }
       }
     }
-    switch(opc){
-      case 0:
-          if(codigo_laptop!=""){
-            switch(stoi(horario_laptop)){
-              case 1:
-                horario_laptop = "08am-10am";
-                break;
-              case 2:
-                horario_laptop = "10am-12pm";
-                break;
-              case 3:
-                horario_laptop = "12pm-02pm";
-                break;
-              case 4:
-                horario_laptop = "02pm-04pm";
-                break;
-              case 5:
-                horario_laptop = "04pm-06pm";
-                break;
-              case 6:
-                horario_laptop = "06pm-08pm";
-                break;
-            }
-        change_color(240);
-        gotoxy(42, 15);
-        cout<<"   Alumno  :"<<users[AdminVerificar::aux].nombre;
-        gotoxy(42, 17);
-        cout<<"   Laptop  : "<<codigo_laptop;
-        gotoxy(42, 19);
-        cout<<"   Horario : "<<horario_laptop;
-        AdminVerificar::letra = 'B';
-        AdminVerificar::confirmar(gestor);
-      }else{
-        change_color(244);
-        gotoxy(42, 17);
-        cout<<"  NO TIENE RESERVA ";
-        getch();
-        gestor.cambiar_ventana(Ventanas::ADMINMAIN);
-        break;
-      }
-        break;
+
+    string horario_letra;
+
+    switch(stoi(horario)){
       case 1:
-          if(codigo_cubiculo!=""){
-            switch(stoi(horario_cubiculo)){
-              case 1:
-                horario_cubiculo = "08am-10am";
-                break;
-              case 2:
-                horario_cubiculo = "10am-12pm";
-                break;
-              case 3:
-                horario_cubiculo = "12pm-02pm";
-                break;
-              case 4:
-                horario_cubiculo = "02pm-04pm";
-                break;
-              case 5:
-                horario_cubiculo = "04pm-06pm";
-                break;
-              case 6:
-                horario_cubiculo = "06pm-08pm";
-                break;
-            }
-        change_color(240);
-        gotoxy(42, 15);
-        cout<<"   Alumno   :"<<users[AdminVerificar::aux].nombre;
-        gotoxy(42, 17);
-        cout<<"   Cubiculo : "<<codigo_cubiculo;
-        gotoxy(42, 19);
-        cout<<"   Horario  : "<<horario_cubiculo;
-        AdminVerificar::letra = 'A';
-        AdminVerificar::confirmar(gestor);
+        horario_letra = "8am - 10am";
         break;
-      }else{
-        change_color(244);
-        gotoxy(42, 17);
-        cout<<"  NO TIENE RESERVA ";
-        getch();
-        gestor.cambiar_ventana(Ventanas::ADMINMAIN);
+      case 2:
+        horario_letra = "10am - 12pm";
         break;
-      }
+      case 3:
+        horario_letra = "12pm - 2pm";
+        break;
+      case 4:
+        horario_letra = "2pm - 4pm";
+        break;
+      case 5:
+        horario_letra = "4pm - 6pm";
+        break;
+      case 6:
+        horario_letra = "6pm - 8pm";
+        break;
     }
+    change_color(240);
+    switch(opcaux){
+      case 0:
+        gotoxy(42, 17);
+        cout<<"   Cubiculo  : "<<codigo_cubiculo;
+        break;    
+      case 1:
+        gotoxy(42, 17);
+        cout<<"   Laptop    : "<<codigo_laptop;
+        break;
+    }
+
+    change_color(240);
+    gotoxy(42, 15);
+    cout<<"   Codigo    : "<<codigo_alumno;
+    gotoxy(42, 19);
+    cout<<"   Horario   : "<<horario_letra;
+
+    confirmar(gestor);
+
 }
 
 void AdminVerificar::confirmar(GestorVentanas& gestor){
@@ -327,8 +239,8 @@ void AdminVerificar::confirmar(GestorVentanas& gestor){
           fileultimo.close();
 
           for (int i = 0; i < data_ultimo.size(); i++){
-              if (stoi(data_ultimo[i][2]) == stoi(AdminVerificar::codigo_estudiante)){
-                if(AdminVerificar::letra == data_ultimo[i][0][1]){
+              if (data_ultimo[i][2] == AdminVerificar::codigo_busqueda){
+                if(AdminVerificar::letra == data_ultimo[i][0][0]){
                   data_ultimo.erase(data_ultimo.begin() + i);
                   break;
                 }
@@ -338,11 +250,52 @@ void AdminVerificar::confirmar(GestorVentanas& gestor){
 
           ofstream file_ultimo("reservas_data.csv");
           for(int t=0; t<data_ultimo.size(); t++){
-            file_ultimo << data_ultimo[t][0] << "," << data_ultimo[t][1] << "," << data_ultimo[t][2] << endl;
+            file_ultimo << data_ultimo[t][0] << "," << data_ultimo[t][1] << "," << data_ultimo[t][2]<< "," << data_ultimo[t][3] << endl;
           }
 
           file_ultimo.close();
-          
+
+          ifstream file_5("reservas_history.csv");
+          string linea_5;
+
+          AdminVerificar::reservas_historial.clear();
+
+          // Leer datos desde el archivo CSV y almacenar en reservas_historial
+          while (getline(file_5, linea_5)) {
+              vector<string> reservas = {};
+              string reserva = "";
+              stringstream ss(linea_5);
+
+              while (getline(ss, reserva, ',')) {
+                  reservas.push_back(reserva);
+              }
+
+              AdminVerificar::reservas_historial.push_back(reservas);
+          }
+
+          file_5.close();
+
+          for(int i = 0; i < AdminVerificar::reservas_historial.size(); i++){
+            if(AdminVerificar::reservas_historial[i][0] == AdminVerificar::codigo_estudiante){
+              AdminVerificar::reservas_historial[i][7] = "SI";
+              break;
+            }
+          }
+
+          ofstream file_6("reservas_history.csv");
+
+          for (int i = 0; i < AdminVerificar::reservas_historial.size(); i++) {
+              for (int j = 0; j < AdminVerificar::reservas_historial[i].size(); j++) {
+                  file_6 << AdminVerificar::reservas_historial[i][j];
+                  if (j < AdminVerificar::reservas_historial[i].size() - 1) {
+                      file_6 << ",";
+                  }
+              }
+              file_6 << "\n";
+          }
+
+          file_6.close();
+
 
           gestor.cambiar_ventana(Ventanas::ADMINMAIN);
           break;

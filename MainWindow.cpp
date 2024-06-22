@@ -132,10 +132,27 @@ void MainWindow::borrar(GestorVentanas& gestor){
   }
   file2.close();
 
-  ofstream file3("horarios_data1.csv");
-  for(int t=0; t<h_data.size(); t++){
-    file3 << h_data[t][0] << ",0,0,0,0,0,0" << endl;
+  for(int i = 0; i < h_data.size(); i++){
+    h_data[i][1] = "0";
+    h_data[i][2] = "0";
+    h_data[i][3] = "0";
+    h_data[i][4] = "0";
+    h_data[i][5] = "0";
+    h_data[i][6] = "0";
   }
+
+  ofstream file3("horarios_data.csv");
+
+  for (int i = 0; i < h_data.size(); i++) {
+      for (int j = 0; j < h_data[i].size(); j++) {
+          file3 << h_data[i][j];
+          if (j < h_data[i].size() - 1) {
+              file3 << ",";
+          }
+      }
+      file3 << "\n";
+  }
+
   file3.close(); 
 }
 
@@ -179,43 +196,44 @@ void MainWindow::cargar_sanciones(GestorVentanas& gestor){
   file_sanciones.close();
 
   for (int t = 0; t < historial_sanciones.size(); t++) {
-    int codigo = stoi(historial_sanciones[t][0]); // Código convertido a entero si es necesario
-    for (auto it = reservas_data.begin(); it != reservas_data.end(); ) {
-      if ((*it)[2] == historial_sanciones[t][0]) { // Comparación de código
-        int aux = stoi((*it)[1]); // Horario convertido a entero si es necesario
+      int codigo = stoi(historial_sanciones[t][0]); //codigo = 23200338
+      for (auto it = reservas_data.begin(); it != reservas_data.end(); ) {
+          if ((*it)[2] == to_string(codigo)) { // data[i][2]=23200338
+              int aux = stoi((*it)[1]); // data[i][1] es el horario
 
-        switch (aux) {
-          case 1:
-            horaFin = 10;
-            break;
-          case 2:
-            horaFin = 12;
-            break;
-          case 3:
-            horaFin = 14;
-            break;
-          case 4:
-            horaFin = 16;
-            break;
-          case 5:
-            horaFin = 18;
-            break;
-          case 6:
-            horaFin = 20;
-            break;
-        }
+              int horaFin;
+              switch (aux) {
+                  case 1:
+                      horaFin = 10;
+                      break;
+                  case 2:
+                      horaFin = 12;
+                      break;
+                  case 3:
+                      horaFin = 14;
+                      break;
+                  case 4:
+                      horaFin = 16;
+                      break;
+                  case 5:
+                      horaFin = 18;
+                      break;
+                  case 6:
+                      horaFin = 20;
+                      break;
+              }
 
-        if (horaActual >= horaFin && minActual >= 0) {
-          int incremento = stoi(historial_sanciones[t][1]); // Incremento convertido a entero si es necesario
-          historial_sanciones[t][1] = to_string(incremento + 1); // Incremento y asignación como string
-          it = reservas_data.erase(it); // Eliminar y avanzar el iterador
-        } else {
-          ++it; // Solo avanzar el iterador
-        }
-      } else {
-        ++it; // Solo avanzar el iterador
+              if ((horaActual >= horaFin || horaActual < 8) && minActual >= 0) {
+                  int incremento = stoi(historial_sanciones[t][1]); // Incremento convertido a entero si es necesario
+                  historial_sanciones[t][1] = to_string(incremento + 1); // Incremento y asignación como string
+                  it = reservas_data.erase(it); // Eliminar y avanzar el iterador
+              } else {
+                  ++it; // Solo avanzar el iterador
+              }
+          } else {
+              ++it; // Solo avanzar el iterador
+          }
       }
-    }
   }
 
   ofstream file21("sanciones.csv");
