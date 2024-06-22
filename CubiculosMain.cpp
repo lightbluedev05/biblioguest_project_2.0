@@ -6,6 +6,8 @@
 #include <sstream>
 #include <conio.h>
 #include <cstdlib>
+#include <cmath>
+#include <iomanip>
 
 using namespace std;
 
@@ -65,143 +67,131 @@ void CubiculosMain::mostrar() {
   cout<<"OPCIONES (ARRIBA Y ABAJO)";
 }
 
-void CubiculosMain::listar_cubiculos() {
-  //$ OBTENCION DE HORARIOS_DATA
-  ifstream horarios("horarios_data.csv");
-  string linea;
-  vector<vector<string>> h_data;
-  while(getline(horarios, linea)){
-    vector<string> aux={};
-    stringstream ss(linea);
-    string aux2;
-    while(getline(ss, aux2, ',')){
-      aux.push_back(aux2);
+
+void dibujar_ventana2(int ventana_actual, vector<vector<string>> data, int numero_ventanas){
+  int n=data.size();
+  int inicio = (ventana_actual-1)*6;
+  int final;
+
+  //$ INDICADOR DE VENTANA
+  ostringstream numero_ventana;
+  numero_ventana<<setw(2)<<setfill('0')<<(ventana_actual);
+  ostringstream total_ventanas;
+  total_ventanas<<setw(2)<<setfill('0')<<numero_ventanas;
+  change_color(241);
+  gotoxy(88, 26);
+  cout<<"<--Pagina "<<numero_ventana.str()<<" / "<<total_ventanas.str()<<"-->";
+  change_color(240);
+
+  //$ LIMPIEZA HORARIOS
+  for(int i=0; i<19; i++){
+    gotoxy(20, 7+i);
+    for(int j=0; j<90; j++){
+      cout<<" ";
     }
-    h_data.push_back(aux);
-  }
-  horarios.close();
-  
-  int cubiculo101[6]={0,0,0,0,0,0};
-  int cubiculo102[6]={0,0,0,0,0,0};
-  int cubiculo103[6]={0,0,0,0,0,0};
-  int cubiculo104[6]={0,0,0,0,0,0};
-  int cubiculo201[6]={0,0,0,0,0,0};
-  int cubiculo202[6]={0,0,0,0,0,0};
-  int cubiculo203[6]={0,0,0,0,0,0};
-  int cubiculo204[6]={0,0,0,0,0,0};
-
-  for(int i=0; i<6; i++){
-    cubiculo101[i]=stoi(h_data[21][i+1]);
-    cubiculo102[i]=stoi(h_data[22][i+1]);
-    cubiculo103[i]=stoi(h_data[23][i+1]);
-    cubiculo104[i]=stoi(h_data[24][i+1]);
-    cubiculo201[i]=stoi(h_data[25][i+1]);
-    cubiculo202[i]=stoi(h_data[26][i+1]);
-    cubiculo203[i]=stoi(h_data[27][i+1]);
-    cubiculo204[i]=stoi(h_data[28][i+1]);
   }
 
-  //$ PINTADO DE CONSOLA
+  //$ HORARIOS
+  if(n>inicio+6){
+    final=inicio+5;
+  } else {
+    final = n-1;
+  }
+
+  for(int i=inicio; i<=final; i++){
+    change_color(241);
+    button(14, 1, 21+(15*(i-inicio)), 9, data[i][0]);
+
+    string aux="Cap.: "+data[i][8];
+    button(14, 1, 21+(15*(i-inicio)), 7, aux);
+    
+    if(data[i][7]!="Habilitado"){
+      change_color(244);
+      for(int j=0; j<data[i][7].length(); j++){
+        gotoxy(27+((i-inicio)*15), 12+j);
+        cout<<data[i][7][j];
+      }
+    } else {
+      for(int j=0; j<6; j++){
+        string aux="";
+        if(data[i][j+1]=="1"){
+          aux="No";
+          change_color(244);
+        } else {
+          aux="Si";
+          change_color(242);
+        }
+
+        button(14, 1, 21+(15*(i-inicio)), 12+(j*2), aux);
+      }
+    }
+  }
+}
+
+
+void CubiculosMain::listar_cubiculos() {
+
+  //*----------CONSEGUIR DATA DE CUBICULOS-------------
+  //$ HORARIOS_DATA.CSV
+  ifstream file("horarios_data.csv");
+  string linea;
+
+  vector<vector<string>> data;
+
+  while(getline(file, linea)){
+    vector<string> horarios={};
+    string horario="";
+    stringstream ss(linea);
+
+    while(getline(ss, horario, ',')){
+      horarios.push_back(horario);
+    }
+    if(horarios[0][0]=='C'){
+      data.push_back(horarios);
+    }
+  }
+  file.close();
+
+  //*----------IMPRIMIR DATA DE CUBICULOS-------------
   change_color(112);
   system("cls");
-  change_color(240);
-  rectangle(90, 25, 15, 2);
 
-  change_color(244);
-  gotoxy(50,4);
-  cout<<"LISTADO DE CUBICULOS";
+  change_color(240);
+  rectangle(107, 24, 5, 1);
+  gotoxy(13, 3);
+  cout<<"Verifica que cubiculos";
+  gotoxy(13, 4);
+  cout<<"estan disponibles...";
+
   change_color(241);
-  gotoxy(35,6);
-  cout<<"Utilize las flechas (<- , ->) para cambiar de piso";
+  gotoxy(50, 3);
+  cout<<"LISTA DE CUBICULOS";
 
-  gotoxy(40,26);
-  cout<<"LOS HORARIOS EN ROJO YA ESTAN RESERVADOS";
-  gotoxy(46,27);
-  cout<<"Presione ENTER para salir...";
+  button(13, 1, 7, 12, "08AM-10AM");
+  button(13, 1, 7, 14, "10AM-12PM");
+  button(13, 1, 7, 16, "12PM-02PM");
+  button(13, 1, 7, 18, "02PM-04PM");
+  button(13, 1, 7, 20, "04PM-06PM");
+  button(13, 1, 7, 22, "06PM-08PM");
 
-  change_color(240);
-  rectangle(35, 4, 22, 12);
-  rectangle(35, 4, 63, 12);
-  rectangle(35, 4, 22, 19);
-  rectangle(35, 4, 63, 19);
+  int numero_laptops = data.size();
+  int numero_ventanas = ceil(numero_laptops/6.0);
 
-  //$ CAMBIO DE PISO
-  int opc=1, tecla=75;
+  int tecla=75;
+  int ventana_actual=1;
   while(tecla!=13){
-    switch(tecla){
-			case 75:
-        change_color(241);
-				gotoxy(37, 8);
-        cout<<"+------------+";
-        gotoxy(35, 9);
-        cout<<"->|   PISO 1   |";
-        gotoxy(37, 10);
-        cout<<"+------------+";
-        change_color(240);
+    dibujar_ventana2(ventana_actual, data, numero_ventanas);
+    
+    tecla=_getch();
 
-        gotoxy(69, 8);
-        cout<<"+------------+";
-        gotoxy(67, 9);
-        cout<<"  |   PISO 2   |";
-        gotoxy(69, 10);
-        cout<<"+------------+";
-
-				opc=0;
-				break;
-			case 77:
-				gotoxy(37, 8);
-        cout<<"+------------+";
-        gotoxy(35, 9);
-        cout<<"  |   PISO 1   |";
-        gotoxy(37, 10);
-        cout<<"+------------+";
-
-        change_color(241);
-        gotoxy(69, 8);
-        cout<<"+------------+";
-        gotoxy(67, 9);
-        cout<<"->|   PISO 2   |";
-        gotoxy(69, 10);
-        cout<<"+------------+";
-        change_color(240);
-				
-				opc=1;
-				break;
-		}
-		
-    switch(opc){
-      case 0:
-        gotoxy(33,13);
-        cout<<"CUBICULO #1A01";
-        pintar_cubiculo(cubiculo101, 24, 15);
-        gotoxy(74,13);
-        cout<<"CUBICULO #1A02";
-        pintar_cubiculo(cubiculo102, 65, 15);
-        gotoxy(33,20);
-        cout<<"CUBICULO #1A03";
-        pintar_cubiculo(cubiculo103, 24, 22);
-        gotoxy(74,20);
-        cout<<"CUBICULO #1A04";
-        pintar_cubiculo(cubiculo104, 65, 22);
-        break;
-      case 1:
-        gotoxy(33,13);
-        cout<<"CUBICULO #2A01";
-        pintar_cubiculo(cubiculo201, 24, 15);
-        gotoxy(74,13);
-        cout<<"CUBICULO #2A02";
-        pintar_cubiculo(cubiculo202, 65, 15);
-        gotoxy(33,20);
-        cout<<"CUBICULO #2A03";
-        pintar_cubiculo(cubiculo203, 24, 22);
-        gotoxy(74,20);
-        cout<<"CUBICULO #2A04";
-        pintar_cubiculo(cubiculo204, 65, 22);
-        break;
+    if(tecla==75 && ventana_actual>1){
+      ventana_actual--;
+    } else if (tecla==77 && ventana_actual<numero_ventanas){
+      ventana_actual++;
     }
-		tecla = _getch();
   }
-  
+
+  getch();
 }
 
 void CubiculosMain::seleccionar_opcion(GestorVentanas& gestor) {

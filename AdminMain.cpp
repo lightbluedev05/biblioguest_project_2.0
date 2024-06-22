@@ -25,118 +25,148 @@ void AdminMain::mostrar(GestorVentanas& gestor) {
     hide_cursor();
 
     change_color(240);
-    rectangle(50, 27, 35, 1);
+    rectangle(80, 18, 20, 5);
 
     change_color(244);
-    gotoxy(53, 2);
+    gotoxy(53, 6);
     std::cout << "MENU DE ADMIN";
 
     change_color(240);
-    gotoxy(36, 3);
-    std::cout << "------------------------------------------------";
-    gotoxy(37, 4);
+    gotoxy(21, 7);
+    for(int i=0; i<78; i++){
+        cout<<"-";
+    }
+    gotoxy(22, 8);
     std::cout << "BIENVENIDO ADMIN";
-    gotoxy(40, 6);
+    gotoxy(40, 10);
     std::cout << "ESCOGE LA ACTIVIDAD QUE DESEA VERIFICAR:";
 
     change_color(241);
-    gotoxy(40, 27);
+    gotoxy(40, 22);
     std::cout << "UTILIZE LAS FLECHAS PARA SELECCIONAR LAS";
-    gotoxy(48, 28);
+    gotoxy(48, 23);
     std::cout << "OPCIONES (ARRIBA Y ABAJO)";
 }
 
 void AdminMain::seleccionar_opcion(GestorVentanas& gestor) {
     int opc = 1, tecla = 72;
+    int x=1, y=1;
     while (tecla != 13) {
-
-        if (tecla == 72 && opc > 1) {
-            opc--;
+        if(tecla==72 && y>1){
+            y--;
+        } else if(tecla==80 && y<3){
+            y++;
+        } else if(tecla==75 && x>1){
+            x--;
+        } else if(tecla==77 && x<3){
+            x++;
         }
-        if (tecla == 80 && opc < 6) {
-            opc++;
+
+        if (x==1 && y==1){
+            opc=1;
+        } else if (x==2 && y==1){
+            opc=2;
+        } else if (x==3 && y==1){
+            opc=3;
+        } else if (x==1 && y==2){
+            opc=4;
+        } else if (x==2 && y==2){
+            opc=5;
+        } else if (x==3 && y==2){
+            opc=6;
+        } else if (y==3){
+            opc=7;
         }
 
         switch (opc) {
             //$ GESTIONAR LAPTOPS
             case 1:
                 change_color(241);
-                button(25, 1, 48, 8, "Gestionar Laptops");
+                button(23, 1, 22, 12, "Gestionar Laptops");
                 change_color(240);
-
-                button(25, 1, 48, 11, "Gestionar Cubiculos");
-                button(25, 1, 48, 14, "Verificar Reserva");
-                button(25, 1, 48, 17, "Consultar Sanciones");
-                button(25, 1, 48, 20, "Ver Estadisticas");
-                button(25, 1, 48, 23, "Salir");
+                button(23, 1, 48, 12, "Gestionar Cubiculos");
+                button(23, 1, 74, 12, "Verificar Reserva");
+                button(23, 1, 22, 15, "Consultar Sanciones");
+                button(23, 1, 48, 15, "Ver Estadisticas");
+                button(23, 1, 74, 15, "Ver Historial");
+                button(23, 1, 48, 18, "Salir");
                 break;
 
             //$ GESTIONAR CUBICULOS
             case 2:
-                button(25, 1, 48, 8, "Gestionar Laptops");
-
+                button(23, 1, 22, 12, "Gestionar Laptops");
                 change_color(241);
-                button(25, 1, 48, 11, "Gestionar Cubiculos");
+                button(23, 1, 48, 12, "Gestionar Cubiculos");
                 change_color(240);
-
-                button(25, 1, 48, 14, "Verificar Reserva");
-                button(25, 1, 48, 17, "Consultar Sanciones");
-                button(25, 1, 48, 20, "Ver Estadisticas");
-                button(25, 1, 48, 23, "Salir");
+                button(23, 1, 74, 12, "Verificar Reserva");
+                button(23, 1, 22, 15, "Consultar Sanciones");
+                button(23, 1, 48, 15, "Ver Estadisticas");
+                button(23, 1, 74, 15, "Ver Historial");
+                button(23, 1, 48, 18, "Salir");
                 break;
 
             //$ VERIFICAR RESERVAS
             case 3:
-                button(25, 1, 48, 8, "Gestionar Laptops");
-                button(25, 1, 48, 11, "Gestionar Cubiculos");
-
+                button(23, 1, 22, 12, "Gestionar Laptops");
+                button(23, 1, 48, 12, "Gestionar Cubiculos");
                 change_color(241);
-                button(25, 1, 48, 14, "Verificar Reserva");
+                button(23, 1, 74, 12, "Verificar Reserva");
                 change_color(240);
-
-                button(25, 1, 48, 17, "Consultar Sanciones");
-                button(25, 1, 48, 20, "Ver Estadisticas");
-                button(25, 1, 48, 23, "Salir");
+                button(23, 1, 22, 15, "Consultar Sanciones");
+                button(23, 1, 48, 15, "Ver Estadisticas");
+                button(23, 1, 74, 15, "Ver Historial");
+                button(23, 1, 48, 18, "Salir");
                 break;
             
             //$ CONSULTAR SANCIONES
             case 4:
-                button(25, 1, 48, 8, "Gestionar Laptops");
-                button(25, 1, 48, 11, "Gestionar Cubiculos");
-                button(25, 1, 48, 14, "Verificar Reserva");
-
+                button(23, 1, 22, 12, "Gestionar Laptops");
+                button(23, 1, 48, 12, "Gestionar Cubiculos");
+                button(23, 1, 74, 12, "Verificar Reserva");
                 change_color(241);
-                button(25, 1, 48, 17, "Consultar Sanciones");
+                button(23, 1, 22, 15, "Consultar Sanciones");
                 change_color(240);
-
-                button(25, 1, 48, 20, "Ver Estadisticas");
-                button(25, 1, 48, 23, "Salir");
+                button(23, 1, 48, 15, "Ver Estadisticas");
+                button(23, 1, 74, 15, "Ver Historial");
+                button(23, 1, 48, 18, "Salir");
                 break;
 
             //$ VER ESTADISTICAS
             case 5:
-                button(25, 1, 48, 8, "Gestionar Laptops");
-                button(25, 1, 48, 11, "Gestionar Cubiculos");
-                button(25, 1, 48, 14, "Verificar Reserva");
-                button(25, 1, 48, 17, "Consultar Sanciones");
-
+                button(23, 1, 22, 12, "Gestionar Laptops");
+                button(23, 1, 48, 12, "Gestionar Cubiculos");
+                button(23, 1, 74, 12, "Verificar Reserva");
+                button(23, 1, 22, 15, "Consultar Sanciones");
                 change_color(241);
-                button(25, 1, 48, 20, "Ver Estadisticas");
+                button(23, 1, 48, 15, "Ver Estadisticas");
                 change_color(240);
+                button(23, 1, 74, 15, "Ver Historial");
+                button(23, 1, 48, 18, "Salir");
+                break;
 
-                button(25, 1, 48, 23, "Salir");
+            //$ VER HISTORIAL
+            case 6:
+                button(23, 1, 22, 12, "Gestionar Laptops");
+                button(23, 1, 48, 12, "Gestionar Cubiculos");
+                button(23, 1, 74, 12, "Verificar Reserva");
+                button(23, 1, 22, 15, "Consultar Sanciones");
+                button(23, 1, 48, 15, "Ver Estadisticas");
+                change_color(241);
+                button(23, 1, 74, 15, "Ver Historial");
+                change_color(240);
+                button(23, 1, 48, 18, "Salir");
                 break;
 
             //$ SALIR
-            case 6:
-                button(25, 1, 48, 8, "Gestionar Laptops");
-                button(25, 1, 48, 11, "Gestionar Cubiculos");
-                button(25, 1, 48, 14, "Verificar Reserva");
-                button(25, 1, 48, 17, "Consultar Sanciones");
-                button(25, 1, 48, 20, "Ver Estadisticas");
-
+            case 7:
+                button(23, 1, 22, 12, "Gestionar Laptops");
+                button(23, 1, 48, 12, "Gestionar Cubiculos");
+                button(23, 1, 74, 12, "Verificar Reserva");
+                button(23, 1, 22, 15, "Consultar Sanciones");
+                button(23, 1, 48, 15, "Ver Estadisticas");
+                button(23, 1, 74, 15, "Ver Historial");
                 change_color(241);
-                button(25, 1, 48, 23, "Salir");
+                button(23, 1, 48, 18, "Salir");
                 change_color(240);
                 break;
         }
@@ -157,6 +187,7 @@ void AdminMain::seleccionar_opcion(GestorVentanas& gestor) {
 
         //$ GESTIONAR CUBICULOS
         case 2:
+            gestor.cambiar_ventana(Ventanas::GESTIONARCUBICULOS);
             break;
 
         //$ VERIFICAR RESERVAS
@@ -181,8 +212,13 @@ void AdminMain::seleccionar_opcion(GestorVentanas& gestor) {
             result = std::system(command.c_str());
             break;
 
-        //$ SALIR
+        //$ VER HISTORIAL
         case 6:
+            gestor.cambiar_ventana(Ventanas::ADMINHISTORY);
+            break;
+        
+        //$ SALIR
+        case 7:
             gestor.cambiar_ventana(Ventanas::MAINWINDOW);
             break;
     }

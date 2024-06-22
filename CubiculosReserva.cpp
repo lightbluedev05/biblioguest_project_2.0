@@ -21,12 +21,6 @@ vector<vector<string>> CubiculosReserva::horarios_data;
 vector<vector<string>> CubiculosReserva::reservas_data;
 vector<vector<int>> CubiculosReserva::historial;
 
-bool cubiculo_valido(const string& codigo) {
-  set<string> codigos_validos = {"1A01", "1A02", "1A03", "1A04", "2A01", "2A02", "2A03", "2A04"};
-
-  return find(codigos_validos.begin(), codigos_validos.end(), codigo) != codigos_validos.end();
-}
-
 
 void CubiculosReserva::mostrar(){
   change_color(112);
@@ -135,7 +129,9 @@ void CubiculosReserva::conseguir_data(){
 
 void CubiculosReserva::ingresar_datos(GestorVentanas& gestor){
   int controlador=0;
+  bool encontrado;
   do{
+    encontrado=false;
     controlador++;
     if(controlador>4){
       gotoxy(98, 6);
@@ -152,7 +148,14 @@ void CubiculosReserva::ingresar_datos(GestorVentanas& gestor){
     cout<<"             ";
     gotoxy(67,7);
     cin>>CubiculosReserva::codigo_cubiculo;
-  } while(!cubiculo_valido(CubiculosReserva::codigo_cubiculo));
+
+    for(int i=0; i<CubiculosReserva::horarios_data.size(); i++){
+      if(CubiculosReserva::codigo_cubiculo==CubiculosReserva::horarios_data[i][0]){
+        encontrado=true;
+        break;
+      }
+    }
+  } while(!encontrado);
 
   //$ SELECCION DE HORARIO
   int aux_x=0, aux_y=0, tecla=75;
@@ -274,7 +277,7 @@ void CubiculosReserva::comprobacion_de_datos(GestorVentanas& gestor){
   int busqueda=0, horario_aux, linea;
 
   for(int i=0; i<r_data.size(); i++){
-    if(r_data[i][2]==gestor.codigo && r_data[i][0][1]=='A'){
+    if(r_data[i][2]==gestor.codigo && r_data[i][0][0]=='C'){
       //$ CODIGO YA UTILIZADO
       busqueda=3;
       break;

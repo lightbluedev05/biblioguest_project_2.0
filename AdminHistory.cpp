@@ -341,7 +341,7 @@ void AdminHistory::buscar_salir_ver(GestorVentanas& gestor) {
             dibujar_tabla(gestor);
             break;
         case 3:
-            exit(0);
+            gestor.cambiar_ventana(Ventanas::ADMINMAIN);
             break;
         case 4:{
             ofstream file_3("reservas_filtro.csv");

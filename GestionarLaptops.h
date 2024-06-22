@@ -10,7 +10,7 @@ class GestionarLaptops{
     void seleccionar_opcion(GestorVentanas& gestor);
     void ver_laptops();
     void cantidad_laptops();
-    void añadir_laptop();
+    void anadir_laptop();
     void editar_laptop();
     void eliminar_laptop();
     void estado_laptop();
