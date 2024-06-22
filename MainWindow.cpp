@@ -146,7 +146,7 @@ void MainWindow::cargar_sanciones(GestorVentanas& gestor){
   int minActual = tiempoLocal->tm_min;
   int horaInicio, horaFin;
 
-  vector<vector<string>> data;
+  vector<vector<string>> reservas_data;
   string linea;
   ifstream file("reservas_data.csv");
 
@@ -158,7 +158,7 @@ void MainWindow::cargar_sanciones(GestorVentanas& gestor){
     while(getline(ss, reserva, ',')){
       reservas.push_back(reserva);
     }
-    data.push_back(reservas);
+    reservas_data.push_back(reservas);
   }
   file.close();
 
@@ -180,7 +180,7 @@ void MainWindow::cargar_sanciones(GestorVentanas& gestor){
 
   for (int t = 0; t < historial_sanciones.size(); t++) {
     int codigo = stoi(historial_sanciones[t][0]); // Código convertido a entero si es necesario
-    for (auto it = data.begin(); it != data.end(); ) {
+    for (auto it = reservas_data.begin(); it != reservas_data.end(); ) {
       if ((*it)[2] == historial_sanciones[t][0]) { // Comparación de código
         int aux = stoi((*it)[1]); // Horario convertido a entero si es necesario
 
@@ -208,7 +208,7 @@ void MainWindow::cargar_sanciones(GestorVentanas& gestor){
         if (horaActual >= horaFin && minActual >= 0) {
           int incremento = stoi(historial_sanciones[t][1]); // Incremento convertido a entero si es necesario
           historial_sanciones[t][1] = to_string(incremento + 1); // Incremento y asignación como string
-          it = data.erase(it); // Eliminar y avanzar el iterador
+          it = reservas_data.erase(it); // Eliminar y avanzar el iterador
         } else {
           ++it; // Solo avanzar el iterador
         }
@@ -224,9 +224,11 @@ void MainWindow::cargar_sanciones(GestorVentanas& gestor){
   }
   file21.close();
 
+
+  
   ofstream file31("reservas_data.csv");
-  for(int t=0; t<data.size(); t++){
-    file31 << data[t][0] << "," << data[t][1] << "," << data[t][2] << "," << data[t][3] << endl;
+  for(int t=0; t<reservas_data.size(); t++){
+    file31 << reservas_data[t][0] << "," << reservas_data[t][1] << "," << reservas_data[t][2] << "," << reservas_data[t][3] << endl;
   }
   file31.close();
 

@@ -278,7 +278,7 @@ void LaptopReserva::comprobacion_de_datos(GestorVentanas& gestor){
   int busqueda=0, horario_aux, linea;
 
   for(int i=0; i<r_data.size(); i++){
-    if(r_data[i][2]==gestor.codigo && r_data[i][0][1]=='B'){
+    if(r_data[i][2]==gestor.codigo && r_data[i][0][0]=='L'){
       //$ CODIGO YA UTILIZADO
       busqueda=3;
       break;
