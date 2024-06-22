@@ -197,7 +197,7 @@ void AdminMain::sanciones(GestorVentanas& gestor){
     rectangle(67, 22, 27, 3);
 
     change_color(244);
-    gotoxy(52, 4);
+    gotoxy(50, 4);
     cout << " NUMERO DE SANCIONES ";
 
     change_color(240);
@@ -205,18 +205,17 @@ void AdminMain::sanciones(GestorVentanas& gestor){
     cout << "Codigo del estudiante: #";
     rectangle(15, 1, 66, 6);
 
-    rectangle(21, 1, 53, 10);
+    rectangle(22, 1, 49, 10);
     //+3
 
-    rectangle(15, 1, 43, 22);
-    gotoxy(46,23);
+    rectangle(15, 1, 43, 19);
+    gotoxy(46,20);
     cout << "RESETEAR";
 
-    rectangle(15, 1, 63, 22);
-    gotoxy(68,23);
+    rectangle(15, 1, 63, 19);
+    gotoxy(68,20);
     cout << "ATRAS";
     ingresar_codigo(gestor);
-    getch();
 }
 //a
 void AdminMain::ingresar_codigo(GestorVentanas& gestor) {
@@ -264,12 +263,12 @@ void AdminMain::ingresar_codigo(GestorVentanas& gestor) {
         contador++;
     } while (AdminMain::codigo_encontrado == "no");
 
-    change_color(113);
+    change_color(250);
     gotoxy(83,7);
     cout << "CORRECTO";
 
     change_color(240);
-    gotoxy(56,11);
+    gotoxy(52,11);
     cout << "N de sancion: #"<<AdminMain::numerosanciones;
 
     change_color(240);
@@ -279,30 +278,47 @@ void AdminMain::ingresar_codigo(GestorVentanas& gestor) {
 
 void AdminMain::confirmar(GestorVentanas& gestor){
   int opc=1, tecla=75;
+    change_color(244);
+    gotoxy(45, 14);
+    std::cout<<"RESETEAR :";
+    gotoxy(45, 17);
+    std::cout<<"ATRAS    : ";
+    change_color(240);
+    gotoxy(56,14);
+    std::cout<<"Reiniciar la cantidad";
+    gotoxy(56,15);
+    std::cout<<"de sanciones";
+    gotoxy(56,17);
+    std::cout<<"Salir al menu principal";
+    change_color(241);
+    gotoxy(40, 23);
+    std::cout << "UTILIZE LAS FLECHAS PARA SELECCIONAR LAS";
+    gotoxy(45, 24);
+    std::cout << "OPCIONES (IZQUIERDA Y DERECHA)";
   while(tecla!=13){
     switch(tecla){
 			case 75:
         change_color(241);
-        rectangle(15, 1, 43, 22);
-        gotoxy(46,23);
+        rectangle(15, 1, 43, 19);
+        gotoxy(46,20);
         cout << "RESETEAR";
         change_color(240);
 
-        rectangle(15, 1, 63, 22);
-        gotoxy(68,23);
+        rectangle(15, 1, 63, 19);
+        gotoxy(68,20);
         cout << "ATRAS";
 
 				opc=0;
 				break;
 			case 77:
-        rectangle(15, 1, 43, 22);
-        gotoxy(46,23);
-        cout << "CONFIRMAR";
+        rectangle(15, 1, 43, 19);
+        gotoxy(46,20);
+        cout << "RESETEAR";
 
         change_color(241);
-        rectangle(15, 1, 63, 22);
-        gotoxy(68,23);
-        cout << "RESETEAR";
+        rectangle(15, 1, 63, 19);
+        gotoxy(68,20);
+        cout << "ATRAS";
         change_color(240);
 				
 				opc=1;

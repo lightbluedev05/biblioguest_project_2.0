@@ -60,6 +60,13 @@ void AdminVerificar::mostrar(GestorVentanas& gestor){
     rectangle(15, 1, 63, 22);
     gotoxy(68,23);
     cout << "ATRAS";
+
+    change_color(113);
+    gotoxy(40, 27);
+    cout << "UTILIZE LAS FLECHAS PARA SELECCIONAR LAS";
+    gotoxy(45, 28);
+    cout << "OPCIONES (IZQUIERDA Y DERECHA)";
+    change_color(240);
 }
 
 void AdminVerificar::ingresar_codigo(GestorVentanas& gestor){
@@ -104,7 +111,7 @@ void AdminVerificar::ingresar_codigo(GestorVentanas& gestor){
         }
         contador++;
     } while (AdminVerificar::codigo_encontrado == "no");
-    change_color(113);
+    change_color(250);
     gotoxy(83,7);
     cout<<"CORRECTO";
     change_color(240);
