@@ -142,12 +142,15 @@ void LaptopReserva::ingresar_datos(GestorVentanas& gestor){
     gotoxy(61, 8);
     cin>>LaptopReserva::codigo_laptop;
 
-    for(int i=0; i<20; i++){
-      if(LaptopReserva::codigo_laptop==LaptopReserva::horarios_data[i][0]){
-        valido = true;
-        break;
+    if(LaptopReserva::codigo_laptop[0]=='L'){
+      for(int i=0; i<LaptopReserva::horarios_data.size(); i++){
+        if(LaptopReserva::codigo_laptop==LaptopReserva::horarios_data[i][0]){
+          valido = true;
+          break;
+        }
       }
     }
+
     gotoxy(77, 8);
     if(!valido){
       fallidos += 1;
@@ -322,6 +325,18 @@ void LaptopReserva::comprobacion_de_datos(GestorVentanas& gestor){
   if(busqueda!=3 && busqueda!=4){
     for(int i=0; i<data.size(); i++){
       if(data[i][0]==LaptopReserva::codigo_laptop){
+        if(data[i][10]!="Habilitado"){
+          linea=i;
+          busqueda=5;
+          break;
+        }
+      }
+    }
+  }
+
+  if(busqueda!=3 && busqueda!=4 && busqueda!=5){
+    for(int i=0; i<data.size(); i++){
+      if(data[i][0]==LaptopReserva::codigo_laptop){
         linea = i;
         horario_aux = stoi(LaptopReserva::horario_laptop);
         if(data[i][horario_aux] == "1"){
@@ -382,6 +397,15 @@ void LaptopReserva::comprobacion_de_datos(GestorVentanas& gestor){
       change_color(240);
       gestor.cambiar_ventana(Ventanas::LAPTOPMAIN);
       break;
+    case 5:
+      gotoxy(44, 12);
+      cout<<"ESTA LAPTOP NO ESTA HABILITADO";
+      change_color(241);
+      gotoxy(41,13);
+      cout<<"SU ESTADO ES EL SIGUIENTE: "<<data[linea][10];
+      change_color(240);
+      gestor.cambiar_ventana(Ventanas::LAPTOPMAIN);
+      break;
   }
 
   getch();
@@ -394,7 +418,7 @@ void LaptopReserva::ejecutar_reserva(GestorVentanas& gestor, int laptop, int hor
 
   LaptopReserva::reservas_historial.clear();
 
-  // Leer datos desde el archivo CSV y almacenar en reservas_historial
+  //$ Leer datos desde el archivo CSV y almacenar en reservas_historial
   while (getline(file_5, linea_5)) {
       vector<string> reservas = {};
       string reserva = "";
@@ -409,6 +433,8 @@ void LaptopReserva::ejecutar_reserva(GestorVentanas& gestor, int laptop, int hor
 
   file_5.close();
 
+
+  //$ -----------------------------------------------------------
   srand(time(0));
 
   bool encontrado = true;

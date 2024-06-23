@@ -31,7 +31,7 @@ void AdminVerificar::mostrar(GestorVentanas& gestor){
 
     change_color(240);
     gotoxy(42, 7);
-    cout << "Codigo del estudiante: #";
+    cout << "Codigo de la reserva: #";
     rectangle(15, 1, 66, 6);
 
     rectangle(15, 1, 43, 22);

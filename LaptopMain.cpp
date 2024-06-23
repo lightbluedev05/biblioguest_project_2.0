@@ -61,7 +61,7 @@ void dibujar_ventana(int ventana_actual, vector<vector<string>> data, int numero
   //$ LIMPIEZA HORARIOS
   for(int i=0; i<21; i++){
     gotoxy(26, 7+i);
-    cout<<"                                                                            ";
+    cout<<"                                                                                    ";
   }
 
   //$ HORARIOS

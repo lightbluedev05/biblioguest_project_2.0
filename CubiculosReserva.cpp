@@ -24,7 +24,6 @@ vector<vector<string>> CubiculosReserva::reservas_data;
 vector<vector<string>> CubiculosReserva::reservas_historial;
 vector<vector<int>> CubiculosReserva::historial;
 
-
 void CubiculosReserva::mostrar(){
   change_color(112);
   system("cls");
@@ -152,10 +151,12 @@ void CubiculosReserva::ingresar_datos(GestorVentanas& gestor){
     gotoxy(67,7);
     cin>>CubiculosReserva::codigo_cubiculo;
 
-    for(int i=0; i<CubiculosReserva::horarios_data.size(); i++){
-      if(CubiculosReserva::codigo_cubiculo==CubiculosReserva::horarios_data[i][0]){
-        encontrado=true;
-        break;
+    if(CubiculosReserva::codigo_cubiculo[0]=='C'){
+      for(int i=0; i<CubiculosReserva::horarios_data.size(); i++){
+        if(CubiculosReserva::codigo_cubiculo==CubiculosReserva::horarios_data[i][0]){
+          encontrado=true;
+          break;
+        }
       }
     }
   } while(!encontrado);
@@ -324,6 +325,18 @@ void CubiculosReserva::comprobacion_de_datos(GestorVentanas& gestor){
   if(busqueda!=3 && busqueda!=4){
     for(int i=0; i<data.size(); i++){
       if(data[i][0]==CubiculosReserva::codigo_cubiculo){
+        if(data[i][7]!="Habilitado"){
+          linea=i;
+          busqueda=5;
+          break;
+        }
+      }
+    }
+  }
+
+  if(busqueda!=3 && busqueda!=4 && busqueda!=5){
+    for(int i=0; i<data.size(); i++){
+      if(data[i][0]==CubiculosReserva::codigo_cubiculo){
         linea = i;
         horario_aux = stoi(CubiculosReserva::horario_cubiculo);
         if(data[i][horario_aux] == "1"){
@@ -339,6 +352,10 @@ void CubiculosReserva::comprobacion_de_datos(GestorVentanas& gestor){
   }
   
   system("cls");
+
+  cout<<data[linea][5]<<endl;
+  cout<<data[linea][6]<<endl;
+  cout<<data[linea][7]<<endl;
 
   switch(busqueda){
     case 0:
@@ -381,6 +398,15 @@ void CubiculosReserva::comprobacion_de_datos(GestorVentanas& gestor){
       change_color(241);
       gotoxy(34,11);
       cout<<"REVISA LOS HORARIOS DISPONIBLES EN LA LISTA DE CUBICULOS";
+      change_color(240);
+      gestor.cambiar_ventana(Ventanas::CUBICULOSMAIN);
+      break;
+    case 5:
+      gotoxy(44, 12);
+      cout<<"ESTE CUBICULO NO ESTA HABILITADO";
+      change_color(241);
+      gotoxy(41,13);
+      cout<<"SU ESTADO ES EL SIGUIENTE: "<<data[linea][7];
       change_color(240);
       gestor.cambiar_ventana(Ventanas::CUBICULOSMAIN);
       break;
