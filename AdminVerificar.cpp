@@ -72,13 +72,23 @@ void AdminVerificar::ingresar_codigo(GestorVentanas& gestor){
     int contador=0;
 
     do {
-
+        AdminVerificar::codigo_encontrado = "no";
         if (contador > 0) {
             change_color(244);
             gotoxy(56,11);
             cout<<"ERROR";
             change_color(240);
         }
+
+        if(contador == 3){
+            gotoxy(45,11);
+            cout<<"Volviendo al menu principal...";
+            change_color(240);      
+            getch();    
+            gestor.cambiar_ventana(Ventanas::ADMINMAIN);
+            return;
+        }
+
         gotoxy(67,7);
         cout << "             ";
         gotoxy(67,7);
