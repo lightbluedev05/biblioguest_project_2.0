@@ -1,5 +1,5 @@
-L0001,0,0,0,1,0,0,,,,Habilitado
-L0002,0,0,0,0,0,0,,,,Habilitado
+L0001,0,0,0,1,0,0,i3 4ta Gen,Gtx,16 gb,Habilitado
+L0002,0,0,0,0,0,0,,,,Malogrado
 L0003,0,0,0,0,0,0,,,,Habilitado
 L0004,0,0,0,0,0,0,,,,Habilitado
 L0005,0,0,0,0,0,0,,,,Habilitado
@@ -7,24 +7,43 @@ L0006,0,0,0,0,0,0,,,,Habilitado
 L0007,0,0,0,0,0,0,,,,Habilitado
 L0008,0,0,0,0,0,0,,,,Habilitado
 L0009,0,0,0,0,0,0,,,,Habilitado
-L0010,0,0,0,0,0,0,,,,Mantenimiento
 L0011,0,0,0,0,0,0,,,,Habilitado
-L0012,0,0,0,0,0,0,,,,No Disponible
+L0012,0,0,0,0,0,0,,,,Habilitado
 L0013,0,0,0,0,0,0,,,,Habilitado
 L0014,0,0,0,0,0,0,,,,Habilitado
 L0015,0,0,0,0,0,0,,,,Habilitado
 L0016,0,0,0,0,0,0,,,,Habilitado
 L0017,0,0,0,0,0,0,,,,Habilitado
-C0001,0,0,0,0,0,0,Habilitado, 
-C0002,0,0,0,0,0,0,Habilitado, 
+L0018,0,0,0,0,0,0,,,,Habilitado
+L0019,0,0,0,0,0,0,,,,Habilitado
+L0020,0,0,0,0,0,0,,,,Habilitado
+L0021,0,0,0,0,0,0,,,,Habilitado
+L0022,0,0,0,0,0,0,,,,Habilitado
+L0023,0,0,0,0,0,0,,,,Habilitado
+L0025,0,0,0,0,0,0,,,,Habilitado
+L0026,0,0,0,0,0,0,i7 10ma,rtx,8 gb,Habilitado
+C0001,0,0,0,0,0,0,Habilitado,5
+C0002,0,0,0,0,0,0,Limpieza, 
 C0003,0,0,0,0,0,0,Habilitado, 
 C0004,0,0,0,0,0,0,Habilitado, 
 C0005,0,0,0,0,0,0,Habilitado, 
 C0006,0,0,0,0,0,0,Habilitado, 
 C0007,0,0,0,0,0,0,Habilitado, 
 C0008,0,0,0,0,0,0,Habilitado, 
-C0009,0,0,0,0,0,0,No Disponible, 
-C0010,0,0,0,0,0,0,Limpieza, 
+C0009,0,0,0,0,0,0,Habilitado, 
+C0010,0,0,0,0,0,0,Habilitado, 
 C0011,0,0,0,0,0,0,Habilitado, 
 C0012,0,0,0,0,0,0,Habilitado, 
 C0013,0,0,0,0,0,0,Habilitado, 
+C0014,0,0,0,0,0,0,Habilitado, 
+C0015,0,0,0,0,0,0,Habilitado, 
+C0016,0,0,0,0,0,0,Habilitado, 
+C0017,0,0,0,0,0,0,Habilitado, 
+C0018,0,0,0,0,0,0,Habilitado, 
+C0019,0,0,0,0,0,0,Habilitado, 
+C0020,0,0,0,0,0,0,Habilitado, 
+C0021,0,0,0,0,0,0,Habilitado, 
+C0022,0,0,0,0,0,0,Habilitado, 
+C0023,0,0,0,0,0,0,Habilitado, 
+C0024,0,0,0,0,0,0,Habilitado, 
+C0025,0,0,0,0,0,0,Habilitado, 

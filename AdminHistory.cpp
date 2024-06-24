@@ -87,7 +87,7 @@ void AdminHistory::dibujar_tabla(GestorVentanas& gestor) {
             opc--;
             AdminHistory::aux2 = AdminHistory::aux2 - 11;
         }
-        if (tecla == 77 && opc < (round(AdminHistory::filtro.size()/10))+1) {
+        if (tecla == 77 && opc < (ceil((AdminHistory::filtro.size()+5)/11.00))) {
             opc++;
             AdminHistory::aux2 = AdminHistory::aux2 + 11;
         }
@@ -168,7 +168,7 @@ void AdminHistory::dibujar_tabla(GestorVentanas& gestor) {
           }
           gotoxy(70,27);
           change_color(241);
-          cout<<"Pagina-"<<opc<<"-de-"<<(round(AdminHistory::filtro.size()/10)+1);
+          cout<<"Pagina-"<<opc<<"-de-"<<(ceil((AdminHistory::filtro.size()+5)/11.00));
           change_color(240);
         } else{
           change_color(112);
@@ -186,7 +186,7 @@ void AdminHistory::dibujar_tabla(GestorVentanas& gestor) {
           button(11, 1, 89, 2, "ANO");
           button(9, 1, 99, 2, "USO");
           gotoxy(70,27);
-          cout<<"Pagina-"<<opc<<"-de-"<<(round(AdminHistory::filtro.size()/10)+1);
+          cout<<"Pagina-"<<opc<<"-de-"<<(ceil((AdminHistory::filtro.size()+5)/11.00));
           change_color(240);
 
           change_color(244);
@@ -195,7 +195,7 @@ void AdminHistory::dibujar_tabla(GestorVentanas& gestor) {
           change_color(240);
           int aux = 4;
           string hora = "";
-          if(opc==((round(AdminHistory::filtro.size()/10))+1)){
+          if(opc==(ceil((AdminHistory::filtro.size()+5)/11.00))){
             AdminHistory::auxpase = AdminHistory::filtro.size();
           }else{
             AdminHistory::auxpase = AdminHistory::aux2 + 11;
