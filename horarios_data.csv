@@ -1,14 +1,30 @@
-C0001,0,0,0,0,0,0
-C0002,0,0,0,0,0,0
-L101,0,0,0,0,0,0,,,,habilitado
-L102,0,0,0,0,0,0,17 10ma,rtx,16 gb,habilitado
-L103,0,0,0,0,0,0,amd,gtx,8 gb,Mantenimiento
-L0001,0,0,0,0,0,0,,,,habilitado
-L0002,0,0,0,0,0,0,,,,habilitado
-L0003,0,0,0,0,0,0,,,,habilitado
-L0004,0,0,0,0,0,0,,,,habilitado
-L0005,0,0,0,0,0,0,,,,habilitado
-L0006,0,0,0,0,0,0,,,,habilitado
-L0007,0,0,0,0,0,0,,,,habilitado
-L0008,0,0,0,0,0,0,,,,habilitado
-L1002,0,0,0,0,0,0,,,,habilitado
+L0001,0,0,0,1,0,0,,,,Habilitado
+L0002,0,0,0,0,0,0,,,,Habilitado
+L0003,0,0,0,0,0,0,,,,Habilitado
+L0004,0,0,0,0,0,0,,,,Habilitado
+L0005,0,0,0,0,0,0,,,,Habilitado
+L0006,0,0,0,0,0,0,,,,Habilitado
+L0007,0,0,0,0,0,0,,,,Habilitado
+L0008,0,0,0,0,0,0,,,,Habilitado
+L0009,0,0,0,0,0,0,,,,Habilitado
+L0010,0,0,0,0,0,0,,,,Mantenimiento
+L0011,0,0,0,0,0,0,,,,Habilitado
+L0012,0,0,0,0,0,0,,,,No Disponible
+L0013,0,0,0,0,0,0,,,,Habilitado
+L0014,0,0,0,0,0,0,,,,Habilitado
+L0015,0,0,0,0,0,0,,,,Habilitado
+L0016,0,0,0,0,0,0,,,,Habilitado
+L0017,0,0,0,0,0,0,,,,Habilitado
+C0001,0,0,0,0,0,0,Habilitado, 
+C0002,0,0,0,0,0,0,Habilitado, 
+C0003,0,0,0,0,0,0,Habilitado, 
+C0004,0,0,0,0,0,0,Habilitado, 
+C0005,0,0,0,0,0,0,Habilitado, 
+C0006,0,0,0,0,0,0,Habilitado, 
+C0007,0,0,0,0,0,0,Habilitado, 
+C0008,0,0,0,0,0,0,Habilitado, 
+C0009,0,0,0,0,0,0,No Disponible, 
+C0010,0,0,0,0,0,0,Limpieza, 
+C0011,0,0,0,0,0,0,Habilitado, 
+C0012,0,0,0,0,0,0,Habilitado, 
+C0013,0,0,0,0,0,0,Habilitado, 

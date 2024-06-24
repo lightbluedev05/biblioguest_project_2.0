@@ -13,7 +13,7 @@
 using namespace std;
 
 string UserLogin::sanciones;
-vector<vector<int>> UserLogin::historial_sanciones;
+vector<vector<string>> UserLogin::historial_sanciones;
 
 void UserLogin::mostrar(){
   show_cursor();
@@ -196,25 +196,27 @@ void UserLogin::seleccionar_opcion(GestorVentanas& gestor){
 
       UserLogin::historial_sanciones.clear();
 
-      while(getline(file_sanciones, linea_h)){
-        vector<int> history_sanciones;
-        string valor1;
-        stringstream ss3(linea_h);
+      while (getline(file_sanciones, linea_h)) {
+          vector<string> history_sanciones;
+          string valor1;
+          stringstream ss3(linea_h);
 
-        while(getline(ss3, valor1, ',')){
-          history_sanciones.push_back(stoi(valor1));
-        }
-        UserLogin::historial_sanciones.push_back(history_sanciones);
+          while (getline(ss3, valor1, ',')) {
+              history_sanciones.push_back(valor1); // No convertimos a entero aquí, mantenemos como string
+          }
+          UserLogin::historial_sanciones.push_back(history_sanciones);
       }
       file_sanciones.close();
 
       for (int i = 0; i < UserLogin::historial_sanciones.size(); ++i) {
-        if(UserLogin::historial_sanciones[i][0] == stoi(gestor.codigo)){
-          UserLogin::sanciones = std::to_string(UserLogin::historial_sanciones[i][1]);
+        if(UserLogin::historial_sanciones[i][0] == gestor.codigo){
+          UserLogin::sanciones = UserLogin::historial_sanciones[i][1];
           break;
         }
       }
-      if(stoi(UserLogin::sanciones)==3){
+
+
+      if(UserLogin::sanciones=="3"){
         system("cls");
         change_color(244);
         gotoxy(45, 10);
@@ -224,6 +226,7 @@ void UserLogin::seleccionar_opcion(GestorVentanas& gestor){
       }else{
         UserLogin::validar_credenciales(gestor);
       }
+      
       break;
     }
     case 0:

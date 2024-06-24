@@ -14,6 +14,8 @@
 #include "LaptopMain.h"
 #include "AdminVerificar.h"
 #include "GestionarLaptops.h"
+#include "GestionarCubiculos.h"
+#include "AdminHistory.h"
 
 
 //LLAMAR A CADA CLASE DE VENTANA AÑADIDA
@@ -28,6 +30,8 @@ class LaptopMain;
 class LaptopReserva;
 class AdminVerificar;
 class GestionarLaptops;
+class GestionarCubiculos;
+class AdminHistory;
 
 //AGREGAR LA VENTANA EN EL ENUM
 enum class Ventanas{
@@ -41,7 +45,9 @@ enum class Ventanas{
   LAPTOPMAIN,
   LAPTOPRESERVA,
   ADMINVERIFICAR,
-  GESTIONARLAPTOPS
+  GESTIONARLAPTOPS,
+  GESTIONARCUBICULOS,
+  ADMINHISTORY
 };
 
 class GestorVentanas {
@@ -56,7 +62,6 @@ class GestorVentanas {
     void terminar_programa();
   private:
     Ventanas ventana_actual=Ventanas::MAINWINDOW;
-
     //CREAR UN OBJETO DE CADA VENTANA
     MainWindow* main_window;
     UserLogin* user_login;
@@ -69,6 +74,8 @@ class GestorVentanas {
     LaptopReserva* laptop_reserva;
     AdminVerificar* admin_verificar;
     GestionarLaptops* gestionar_laptops;
+    GestionarCubiculos* gestionar_cubiculos;
+    AdminHistory* admin_history;
 };
 
 #endif

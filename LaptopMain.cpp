@@ -61,7 +61,7 @@ void dibujar_ventana(int ventana_actual, vector<vector<string>> data, int numero
   //$ LIMPIEZA HORARIOS
   for(int i=0; i<21; i++){
     gotoxy(26, 7+i);
-    cout<<"                                                                            ";
+    cout<<"                                                                                    ";
   }
 
   //$ HORARIOS
@@ -87,7 +87,7 @@ void dibujar_ventana(int ventana_actual, vector<vector<string>> data, int numero
     if(data[i][9]!="n"){cout<<data[i][9];}
 
     
-    if(data[i][10]!="habilitado"){
+    if(data[i][10]!="Habilitado"){
       change_color(244);
       for(int j=0; j<data[i][10].length(); j++){
         gotoxy(27+((i-inicio)*15), 15+j);
@@ -139,7 +139,7 @@ void LaptopMain::listar_laptops() {
   change_color(240);
   rectangle(107, 26, 5, 1);
   gotoxy(13, 2);
-  cout<<"Verifica que cubiculos";
+  cout<<"Verifica que laptops";
   gotoxy(13, 3);
   cout<<"estan disponibles...";
 

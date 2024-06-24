@@ -15,8 +15,10 @@ using namespace std;
 string UserMain::horario_laptop;
 string UserMain::horario_cubiculo;
 string UserMain::sanciones;
+string UserMain::codigo_reserva;
 vector<vector<int>> UserMain::historial;
 vector<vector<int>> UserMain::historial_sanciones;
+vector<vector<string>> UserMain::reservas_historial;
 
 void UserMain::mostrar(GestorVentanas& gestor){
   ifstream file_sanciones("sanciones.csv");
@@ -72,7 +74,7 @@ void UserMain::mostrar(GestorVentanas& gestor){
 
 void UserMain::mostrar_reservas(GestorVentanas& gestor){
   string codigo_cubiculo="", horario_cubiculo="", codigo_alumno="";
-  string codigo_laptop="", horario_laptop="";
+  string codigo_laptop="", horario_laptop="", codigo_reserva="";
 
   //* CONSEGUIR DATA DE RESERVAS
   vector<vector<string>> data;
@@ -95,7 +97,8 @@ void UserMain::mostrar_reservas(GestorVentanas& gestor){
   for(int i=0; i<data.size(); i++){
     if(data[i][2]==gestor.codigo){
       codigo_alumno = data[i][2];
-      if(data[i][0][1]=='A'){
+      codigo_reserva = data[i][3];
+      if(data[i][0][0]=='C'){
         codigo_cubiculo = data[i][0];
         horario_cubiculo = data[i][1];
       } else {
@@ -151,6 +154,8 @@ void UserMain::mostrar_reservas(GestorVentanas& gestor){
       cout<<"Horario: "<<horario_cubiculo;
       gotoxy(36,16);
       cout<<"Alumno: "<<codigo_alumno;
+      gotoxy(36,17);
+      cout<<"Reserva: "<<codigo_reserva;
     }
 
     if(codigo_laptop!=""){
@@ -180,6 +185,8 @@ void UserMain::mostrar_reservas(GestorVentanas& gestor){
       cout<<"Horario: "<<horario_laptop;
       gotoxy(65,16);
       cout<<"Alumno: "<<codigo_alumno;
+      gotoxy(65,17);
+      cout<<"Reserva: "<<codigo_reserva;
     }
   }
   
@@ -254,7 +261,8 @@ void UserMain::cancelar_reserva(GestorVentanas& gestor){
     //$ ELIMINACION DE RESERVA DE CUBICULO
     case 0:
       for(int i=0; i<data.size(); i++){
-        if(data[i][2]==gestor.codigo && data[i][0][1]=='A'){
+        if(data[i][2]==gestor.codigo && data[i][0][0]=='C'){
+          UserMain::codigo_reserva= data[i][3];
           UserMain::horario_cubiculo= data[i][1];
           //* ELIMINAR DE HORARIOS_DATA
           int aux_linea, aux_horario;
@@ -345,13 +353,58 @@ void UserMain::cancelar_reserva(GestorVentanas& gestor){
             file_3<<"\n";
           }
           file_3.close();
+
+
+          ifstream file_51("reservas_history.csv");
+          string linea_51;
+
+          UserMain::reservas_historial.clear();
+
+          // Leer datos desde el archivo CSV y almacenar en reservas_historial
+          while (getline(file_51, linea_51)) {
+              vector<string> reservas = {};
+              string reserva = "";
+              stringstream ss(linea_51);
+
+              while (getline(ss, reserva, ',')) {
+                  reservas.push_back(reserva);
+              }
+
+              UserMain::reservas_historial.push_back(reservas);
+          }
+
+          file_51.close();
+
+        for (int i = 0; i < UserMain::reservas_historial.size(); i++) {
+            if (UserMain::reservas_historial[i][0] == UserMain::codigo_reserva) {
+                UserMain::reservas_historial.erase(UserMain::reservas_historial.begin() + i);
+                break;
+            }
+        }
+
+        ofstream file_6("reservas_history.csv");
+
+        for (int i = 0; i < UserMain::reservas_historial.size(); i++) {
+            for (int j = 0; j < UserMain::reservas_historial[i].size(); j++) {
+                file_6 << UserMain::reservas_historial[i][j];
+                if (j < UserMain::reservas_historial[i].size() - 1) {
+                    file_6 << ",";
+                }
+            }
+            file_6 << "\n";
+        }
+
+        file_6.close();  
+
+
       }
       break;
 
     //$ ELIMINACION DE RESERVA DE LAPTOP
     case 1:
       for(int i=0; i<data.size(); i++){
-        if(data[i][2]==gestor.codigo && data[i][0][1]=='B'){
+        if(data[i][2]==gestor.codigo && data[i][0][0]=='L'){
+          UserMain::codigo_reserva= data[i][3];
           UserMain::horario_laptop=data[i][1];
           //* ELIMINAR DE HORARIOS_DATA
           int aux_linea, aux_horario;
@@ -442,6 +495,47 @@ void UserMain::cancelar_reserva(GestorVentanas& gestor){
             file_3<<"\n";
           }
           file_3.close();
+
+          ifstream file_5("reservas_history.csv");
+          string linea_5;
+
+          UserMain::reservas_historial.clear();
+
+          // Leer datos desde el archivo CSV y almacenar en reservas_historial
+          while (getline(file_5, linea_5)) {
+              vector<string> reservas = {};
+              string reserva = "";
+              stringstream ss(linea_5);
+
+              while (getline(ss, reserva, ',')) {
+                  reservas.push_back(reserva);
+              }
+
+              UserMain::reservas_historial.push_back(reservas);
+          }
+
+          file_5.close();
+
+        for (int i = 0; i < UserMain::reservas_historial.size(); i++) {
+            if (UserMain::reservas_historial[i][0] == UserMain::codigo_reserva) {
+                UserMain::reservas_historial.erase(UserMain::reservas_historial.begin() + i);
+                break;
+            }
+        }
+
+        ofstream file_6("reservas_history.csv");
+
+        for (int i = 0; i < UserMain::reservas_historial.size(); i++) {
+            for (int j = 0; j < UserMain::reservas_historial[i].size(); j++) {
+                file_6 << UserMain::reservas_historial[i][j];
+                if (j < UserMain::reservas_historial[i].size() - 1) {
+                    file_6 << ",";
+                }
+            }
+            file_6 << "\n";
+        }
+
+        file_6.close();        
       }
       break;
   }

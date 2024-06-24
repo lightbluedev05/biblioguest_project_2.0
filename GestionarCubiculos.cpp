@@ -1,4 +1,4 @@
-#include "GestionarLaptops.h"
+#include "GestionarCubiculos.h"
 #include <iostream>
 #include <conio.h>
 #include "functions.h"
@@ -14,7 +14,7 @@
 
 using namespace std;
 
-void GestionarLaptops::mostrar() {
+void GestionarCubiculos::mostrar() {
   change_color(112);
   system("cls");
 
@@ -23,14 +23,14 @@ void GestionarLaptops::mostrar() {
 
   change_color(244);
   gotoxy(52, 6);
-  cout<<"GESTIONAR LAPTOPS";
+  cout<<"GESTIONAR CUBICULOS";
 
   change_color(241);
   gotoxy(32, 21);
   cout<<"UTILIZE LAS FLECHAS -> Y <- PARA SELECCIONAR LAS OPCIONES";
 }
 
-void GestionarLaptops::ver_laptops(){
+void GestionarCubiculos::ver_cubiculos(){
   //$ HORARIOS_DATA.CSV
   vector<vector<string>> horarios_data;
   ifstream file("horarios_data.csv");
@@ -46,7 +46,7 @@ void GestionarLaptops::ver_laptops(){
     while(getline(ss, horario, ',')){
       horarios.push_back(horario);
     }
-    if(horarios[0][0]=='L'){
+    if(horarios[0][0]=='C'){
       horarios_data.push_back(horarios);
     }
   }
@@ -60,7 +60,7 @@ void GestionarLaptops::ver_laptops(){
 
   change_color(244);
   gotoxy(52, 3);
-  cout<<"Laptops en el sistema";
+  cout<<"Cubiculos en el sistema";
   change_color(240);
 
   //$ PINTAR LISTADO DE LAPTOPS
@@ -72,14 +72,12 @@ void GestionarLaptops::ver_laptops(){
   button(7, 1, 38, 5, "14-16");
   button(7, 1, 44, 5, "16-18");
   button(7, 1, 50, 5, "18-20");
-  button(13, 1, 56, 5, "PROCESADOR");
-  button(13, 1, 68, 5, "GRAFICA");
-  button(13, 1, 80, 5, "RAM");
-  button(15, 1, 92, 5, "ESTADO");
+  button(15, 1, 56, 5, "ESTADO");
+  button(11, 1, 70, 5, "CAPACIDAD");
   change_color(240);
 
-  int numero_laptops = horarios_data.size();
-  int numero_ventanas = ceil(numero_laptops/20.0);
+  int numero_cubiculos = horarios_data.size();
+  int numero_ventanas = ceil(numero_cubiculos/20.0);
 
   int tecla=75;
   int ventana_actual=1;
@@ -94,6 +92,7 @@ void GestionarLaptops::ver_laptops(){
     }
     change_color(240);
 
+    //$ INDICAR PAGINAS
     ostringstream numero_ventana;
     numero_ventana<<setw(2)<<setfill('0')<<(ventana_actual);
     ostringstream total_ventanas;
@@ -104,19 +103,20 @@ void GestionarLaptops::ver_laptops(){
     change_color(240);
 
     int final;
-    if(20*(ventana_actual-1)+19<numero_laptops){
+    if(20*(ventana_actual-1)+19<numero_cubiculos){
       final=20*(ventana_actual);
     } else {
-      final=20*(ventana_actual-1)+(numero_laptops%20);
+      final=20*(ventana_actual-1)+(numero_cubiculos%20);
     }
 
+    //$ PINTAR CUBICULOS
     int aux_y=8;
     for(int i=20*(ventana_actual-1); i<final; i++){
       int color;
       if(i%2==0){
-        color=128;
-      } else {
         color=112;
+      } else {
+        color=240;
       }
 
       change_color(color);
@@ -188,28 +188,16 @@ void GestionarLaptops::ver_laptops(){
       }
       change_color(color);
 
-      //*PROCESADOR
-      cout<<"|           ";
-      gotoxy(57+((11-horarios_data[i][7].size())/2), aux_y);
+      //*ESTADO
+      cout<<"|             ";
+      gotoxy(57+((13-horarios_data[i][7].size())/2), aux_y);
       cout<<horarios_data[i][7];
 
-      //*GRAFICA
-      gotoxy(68, aux_y);
-      cout<<"|           ";
-      gotoxy(69+((11-horarios_data[i][8].size())/2), aux_y);
+      //*CAPACIDAD
+      gotoxy(70, aux_y);
+      cout<<"|         |";
+      gotoxy(71+((9-horarios_data[i][8].size())/2), aux_y);
       cout<<horarios_data[i][8];
-
-      //*RAM
-      gotoxy(80, aux_y);
-      cout<<"|           ";
-      gotoxy(81+((11-horarios_data[i][9].size())/2), aux_y);
-      cout<<horarios_data[i][9];
-
-      //*ESTADO
-      gotoxy(92, aux_y);
-      cout<<"|             |";
-      gotoxy(93+((13-horarios_data[i][10].size())/2), aux_y);
-      cout<<horarios_data[i][10];
 
       aux_y++;
     }
@@ -226,19 +214,19 @@ void GestionarLaptops::ver_laptops(){
   getch();
 }
 
-void GestionarLaptops::cantidad_laptops(){
+void GestionarCubiculos::cantidad_cubiculos(){
 
   change_color(240);
   system("cls");
 
   gotoxy(26, 10);
-  cout<<"Esta operacion elimina todas las laptops existentes y te permite crear";
+  cout<<"Esta operacion elimina todas los cubiculos existentes y te permite crear";
   gotoxy(27, 11);
-  cout<<"nuevas desde cero... si solo desea agregar dirijase a ANADIR LAPTOP";
+  cout<<"nuevos desde cero... si solo desea agregar dirijase a ANADIR CUBICULO";
 
   change_color(241);
   gotoxy(36, 13);
-  cout<<"SI DA 'ACCEDER' LAS LAPTOPS ACTUALES SE BORRARAN";
+  cout<<"SI DA 'ACCEDER' LOS CUBICULOS ACTUALES SE BORRARAN";
   change_color(240);
 
   int tecla=75, opc;
@@ -275,7 +263,7 @@ void GestionarLaptops::cantidad_laptops(){
       while(getline(ss, horario, ',')){
         horarios.push_back(horario);
       }
-      if(horarios[0][0]!='L'){
+      if(horarios[0][0]!='C'){
         horarios_data.push_back(horarios);
       }
     }
@@ -291,12 +279,12 @@ void GestionarLaptops::cantidad_laptops(){
 
     change_color(244);
     gotoxy(47, 6);
-    cout<<"REINICIO DE INVENTARIO DE LAPTOPS";
+    cout<<"REINICIO DE INVENTARIO DE CUBICULOS";
     change_color(240);
 
     rectangle(6, 1, 64, 8);
     gotoxy(48, 9);
-    cout<<"Nro de laptops:";
+    cout<<"Nro de Cubiculos:";
 
     gotoxy(52, 12);
     cout<<"Elige modo de creacion...";
@@ -306,25 +294,27 @@ void GestionarLaptops::cantidad_laptops(){
 
     change_color(241);  
     gotoxy(23,20);
-    cout<<"'AUTOMATICO' hara que las laptops inicien desde L0001, sin especificaciones";
+    cout<<"'AUTOMATICO' hara que los cubiculos inicien desde C0001, sin capacidad";
     gotoxy(40,21);
-    cout<<"'MANUAL' te permitira especificar para cada laptop";
+    cout<<"'MANUAL' te permitira especificar para cada cubiculo";
     change_color(240);
 
-    //$ CANTIDAD DE NUEVAS LAPTOPS
-    int numero_laptops;
+    //$ CANTIDAD DE NUEVOS CUBICULOS
+    int numero_cubiculos;
+    show_cursor();
     do{
       gotoxy(65, 9);
       cout<<"    |    ";
       gotoxy(65, 9);
-      cin>>numero_laptops;
+      cin>>numero_cubiculos;
 
       if(cin.fail()){
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
       }
 
-    } while(to_string(numero_laptops).length()>4 || numero_laptops==0);
+    } while(to_string(numero_cubiculos).length()>4 || numero_cubiculos==0);
+    hide_cursor();
 
     //$ SELECCION DE MODO DE CREACION (AUTOMATICA O MANUAL)
     int tecla=75, opc=1;
@@ -349,25 +339,23 @@ void GestionarLaptops::cantidad_laptops(){
 
     if(opc==1){
       //** AUTOMATICO **
-      for(int i=0; i<numero_laptops; i++){
-        vector<string> laptop={};
+      for(int i=0; i<numero_cubiculos; i++){
+        vector<string> cubiculo={};
         ostringstream os;
-        os<<"L"<<setw(4)<<setfill('0')<<(i+1);
-        laptop.push_back(os.str());
+        os<<"C"<<setw(4)<<setfill('0')<<(i+1);
+        cubiculo.push_back(os.str());
         for(int j=0; j<6; j++){
-          laptop.push_back("0");
+          cubiculo.push_back("0");
         }
-        laptop.push_back("");
-        laptop.push_back("");
-        laptop.push_back("");
-        laptop.push_back("Habilitado");
+        cubiculo.push_back("Habilitado");
+        cubiculo.push_back(" ");
 
-        horarios_data.push_back(laptop);
+        horarios_data.push_back(cubiculo);
       }
 
     } else {
       //** MANUAL **
-      for(int i=0; i<numero_laptops; i++){
+      for(int i=0; i<numero_cubiculos; i++){
         //! PINTADO DE MANUAL
         string codigo;
         bool encontrado=false;
@@ -382,17 +370,17 @@ void GestionarLaptops::cantidad_laptops(){
 
           change_color(244);
           gotoxy(56,6);
-          cout<<"LAPTOP NRO"<<(i+1);
+          cout<<"CUBICULO NRO"<<(i+1);
           change_color(240);
 
           gotoxy(50, 9);
           cout<<"CODIGO: ";
           rectangle(7, 1, 58, 8);
           gotoxy(59,9);
-          cout<<"L";
+          cout<<"C";
 
           gotoxy(36, 12);
-          cout<<"Como desea crear las especificaciones de esta laptop?";
+          cout<<"Como desea crear la capacidad de este cubiculo";
 
           button(16,1,40,14, "Automatico");
           button(16,1,65,14, "Manual");
@@ -406,16 +394,16 @@ void GestionarLaptops::cantidad_laptops(){
 
           change_color(241);
           gotoxy(30, 23);
-          cout<<"'AUTOMATICO' hara que las laptops no tengan especificaciones";
+          cout<<"'AUTOMATICO' hara que los cubiculos no tengan capacidad";
           gotoxy(29, 24);
-          cout<<"'MANUAL' hara que escribas las especificaciones de las laptops";
+          cout<<"'MANUAL' hara que escribas la capacidad de los cubiculos.";
           change_color(240);
 
           gotoxy(60,9);
           cin>>codigo;
           
           for(int i=0; i<horarios_data.size(); i++){
-            if(horarios_data[i][0]== "L"+codigo){
+            if(horarios_data[i][0]== "C"+codigo){
               encontrado=true;
               break;
             }
@@ -445,69 +433,50 @@ void GestionarLaptops::cantidad_laptops(){
 
         if(opc==1){
           //* CARACTERISTICAS AUTOMATICAS*
-          vector<string> laptop={};
+          vector<string> cubiculo={};
           ostringstream os;
-          os<<"L"<<codigo;
-          laptop.push_back(os.str());
+          os<<"C"<<codigo;
+          cubiculo.push_back(os.str());
           for(int j=0; j<6; j++){
-            laptop.push_back("0");
+            cubiculo.push_back("0");
           }
-          laptop.push_back("");
-          laptop.push_back("");
-          laptop.push_back("");
-          laptop.push_back("Habilitado");
+          cubiculo.push_back("Habilitado");
+          cubiculo.push_back(" ");
 
-          horarios_data.push_back(laptop);
+          horarios_data.push_back(cubiculo);
 
         } else {
           //* CARACTERISTICAS MANUAL*
-          string procesador, grafica, ram;
+          string capacidad;
 
-          vector<string> laptop={};
+          vector<string> cubiculo={};
           ostringstream os;
-          os<<"L"<<codigo;
-          laptop.push_back(os.str());
+          os<<"C"<<codigo;
+          cubiculo.push_back(os.str());
           for(int j=0; j<6; j++){
-            laptop.push_back("0");
+            cubiculo.push_back("0");
           }
           
           cin.ignore();
-          do{
-            gotoxy(35,20);
-            cout<<"                    ";
-            gotoxy(35,18);
-            cout<<"PROCESADOR";
-            rectangle(13, 1, 34, 19);
-            gotoxy(35,20);
-            getline(cin, procesador);
-          } while(procesador.size()>11);
           
           do{
-            gotoxy(55,20);
-            cout<<"                    ";
+            gotoxy(59,20);
+            cout<<"            ";
             gotoxy(57, 18);
-            cout<<"GRAFICA";
-            rectangle(13, 1, 54, 19);
+            cout<<"CAPACIDAD:";
+            rectangle(8, 1, 58, 19);
             gotoxy(55,20);
-            getline(cin, grafica);
-          } while(grafica.size()>11);
-          
-          do{
-            gotoxy(75,20);
-            cout<<"                   ";
-            gotoxy(79, 18);
-            cout<<"RAM";
-            rectangle(13, 1, 74, 19);
-            gotoxy(75,20);
-            getline(cin, ram);
-          } while(ram.size()>11);
-          
-          laptop.push_back(""+procesador+"");
-          laptop.push_back(""+grafica+"");
-          laptop.push_back(""+ram+"");
-          laptop.push_back("Habilitado");
+            getline(cin, capacidad);
+          } while(capacidad.size()>6);
 
-          horarios_data.push_back(laptop);
+          if(capacidad==""){
+            capacidad=" ";
+          }
+          
+          cubiculo.push_back("Habilitado");
+          cubiculo.push_back(capacidad);
+
+          horarios_data.push_back(cubiculo);
         }
       }
     }
@@ -531,7 +500,7 @@ void GestionarLaptops::cantidad_laptops(){
   }
 }
 
-void GestionarLaptops::anadir_laptop(){
+void GestionarCubiculos::anadir_cubiculos(){
   //$ HORARIOS_DATA.CSV
   vector<vector<string>> horarios_data;
   ifstream file("horarios_data.csv");
@@ -560,12 +529,12 @@ void GestionarLaptops::anadir_laptop(){
 
   change_color(244);
   gotoxy(55, 6);
-  cout<<"AÑADIR LAPTOPS";
+  cout<<"AÑADIR CUBICULOS";
   change_color(240);
 
   rectangle(6, 1, 64, 8);
   gotoxy(48, 9);
-  cout<<"Nro de laptops:";
+  cout<<"Nro de Cubiculos:";
 
   gotoxy(52, 12);
   cout<<"Elige modo de creacion...";
@@ -575,26 +544,26 @@ void GestionarLaptops::anadir_laptop(){
 
   change_color(241);  
   gotoxy(23,20);
-  cout<<"'AUTOMATICO' hara que las laptops inicien desde L0001, sin especificaciones";
+  cout<<"'AUTOMATICO' hara que los cubiculos inicien desde C0001, sin capacidad";
   gotoxy(40,21);
-  cout<<"'MANUAL' te permitira especificar para cada laptop";
+  cout<<"'MANUAL' te permitira especificar para cada cubiculo";
   change_color(240);
 
-  //$ CANTIDAD DE LAPTOPS A AÑADIR
-  int numero_laptops;
+  //$ CANTIDAD DE CUBICULOS A AÑADIR
+  int numero_cubiculos;
   show_cursor();
   do{
     gotoxy(65, 9);
     cout<<"    |    ";
     gotoxy(65, 9);
-    cin>>numero_laptops;
+    cin>>numero_cubiculos;
 
     if(cin.fail()){
       cin.clear();
       cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
 
-  } while(to_string(numero_laptops).length()>4 || numero_laptops==0);
+  } while(to_string(numero_cubiculos).length()>4 || numero_cubiculos==0);
   hide_cursor();
 
   //$ SELECCION DE MODO DE CREACION (AUTOMATICA O MANUAL)
@@ -621,11 +590,11 @@ void GestionarLaptops::anadir_laptop(){
   if(opc==1){
     //** AUTOMATICO **
     int i=0, aux=0;
-    while(i<numero_laptops){
+    while(i<numero_cubiculos){
       bool encontrado=false;
-      vector<string> laptop={};
+      vector<string> cubiculo={};
       ostringstream os;
-      os<<"L"<<setw(4)<<setfill('0')<<(aux+1);
+      os<<"C"<<setw(4)<<setfill('0')<<(aux+1);
 
       for(int j=0; j<horarios_data.size(); j++){
         if(horarios_data[j][0]==os.str()){
@@ -635,15 +604,13 @@ void GestionarLaptops::anadir_laptop(){
       }
 
       if(!encontrado){
-        laptop.push_back(os.str());
+        cubiculo.push_back(os.str());
         for(int k=0; k<6; k++){
-          laptop.push_back("0");
+          cubiculo.push_back("0");
         }
-        laptop.push_back("");
-        laptop.push_back("");
-        laptop.push_back("");
-        laptop.push_back("Habilitado");
-        horarios_data.push_back(laptop);
+        cubiculo.push_back("Habilitado");
+        cubiculo.push_back(" ");
+        horarios_data.push_back(cubiculo);
         i++;
       }
       aux++;
@@ -651,7 +618,7 @@ void GestionarLaptops::anadir_laptop(){
 
   } else {
     //** MANUAL **
-    for(int i=0; i<numero_laptops; i++){
+    for(int i=0; i<numero_cubiculos; i++){
       //! PINTADO DE MANUAL
       string codigo;
       bool encontrado=false;
@@ -666,17 +633,17 @@ void GestionarLaptops::anadir_laptop(){
 
         change_color(244);
         gotoxy(56,6);
-        cout<<"LAPTOP NRO"<<(i+1);
+        cout<<"CUBICULO NRO"<<(i+1);
         change_color(240);
 
         gotoxy(50, 9);
         cout<<"CODIGO: ";
         rectangle(7, 1, 58, 8);
         gotoxy(59,9);
-        cout<<"L";
+        cout<<"C";
 
         gotoxy(36, 12);
-        cout<<"Como desea crear las especificaciones de esta laptop?";
+        cout<<"Como desea crear la capacidad de este cubiculo";
 
         button(16,1,40,14, "Automatico");
         button(16,1,65,14, "Manual");
@@ -690,16 +657,16 @@ void GestionarLaptops::anadir_laptop(){
 
         change_color(241);
         gotoxy(30, 23);
-        cout<<"'AUTOMATICO' hara que las laptops no tengan especificaciones";
+        cout<<"'AUTOMATICO' hara que los cubiculos no tengan capacidad";
         gotoxy(29, 24);
-        cout<<"'MANUAL' hara que escribas las especificaciones de las laptops";
+        cout<<"'MANUAL' hara que escribas la capacidad de los cubiculos.";
         change_color(240);
 
         gotoxy(60,9);
         cin>>codigo;
         
         for(int i=0; i<horarios_data.size(); i++){
-          if(horarios_data[i][0]== "L"+codigo){
+          if(horarios_data[i][0]== "C"+codigo){
             encontrado=true;
             break;
           }
@@ -729,69 +696,50 @@ void GestionarLaptops::anadir_laptop(){
 
       if(opc==1){
         //* CARACTERISTICAS AUTOMATICAS*
-        vector<string> laptop={};
+        vector<string> cubiculo={};
         ostringstream os;
-        os<<"L"<<codigo;
-        laptop.push_back(os.str());
+        os<<"C"<<codigo;
+        cubiculo.push_back(os.str());
         for(int j=0; j<6; j++){
-          laptop.push_back("0");
+          cubiculo.push_back("0");
         }
-        laptop.push_back("");
-        laptop.push_back("");
-        laptop.push_back("");
-        laptop.push_back("Habilitado");
+        cubiculo.push_back("Habilitado");
+        cubiculo.push_back(" ");
 
-        horarios_data.push_back(laptop);
+        horarios_data.push_back(cubiculo);
 
       } else {
         //* CARACTERISTICAS MANUAL*
-        string procesador, grafica, ram;
+        string capacidad;
 
-        vector<string> laptop={};
+        vector<string> cubiculo={};
         ostringstream os;
-        os<<"L"<<codigo;
-        laptop.push_back(os.str());
+        os<<"C"<<codigo;
+        cubiculo.push_back(os.str());
         for(int j=0; j<6; j++){
-          laptop.push_back("0");
+          cubiculo.push_back("0");
         }
-
+        
         cin.ignore();
-        do{
-          gotoxy(35,20);
-          cout<<"                    ";
-          gotoxy(35,18);
-          cout<<"PROCESADOR";
-          rectangle(13, 1, 34, 19);
-          gotoxy(35,20);
-          getline(cin, procesador);
-        } while(procesador.size()>11);
         
         do{
-          gotoxy(55,20);
-          cout<<"                    ";
+          gotoxy(59,20);
+          cout<<"            ";
           gotoxy(57, 18);
-          cout<<"GRAFICA";
-          rectangle(13, 1, 54, 19);
+          cout<<"CAPACIDAD:";
+          rectangle(8, 1, 58, 19);
           gotoxy(55,20);
-          getline(cin, grafica);
-        } while(grafica.size()>11);
+          getline(cin, capacidad);
+        } while(capacidad.size()>6);
+
+        if(capacidad==""){
+          capacidad=" ";
+        }
         
-        do{
-          gotoxy(75,20);
-          cout<<"                   ";
-          gotoxy(79, 18);
-          cout<<"RAM";
-          rectangle(13, 1, 74, 19);
-          gotoxy(75,20);
-          getline(cin, ram);
-        } while(ram.size()>11);
+        cubiculo.push_back("Habilitado");
+        cubiculo.push_back(capacidad);
 
-        laptop.push_back(""+procesador+"");
-        laptop.push_back(""+grafica+"");
-        laptop.push_back(""+ram+"");
-        laptop.push_back("Habilitado");
-
-        horarios_data.push_back(laptop);
+        horarios_data.push_back(cubiculo);
       }
     }
   }
@@ -813,7 +761,7 @@ void GestionarLaptops::anadir_laptop(){
   file2.close();
 }
 
-void GestionarLaptops::editar_laptop(){
+void GestionarCubiculos::editar_cubiculos(){
   //$ HORARIOS_DATA.CSV
   vector<vector<string>> horarios_data;
   ifstream file("horarios_data.csv");
@@ -836,7 +784,7 @@ void GestionarLaptops::editar_laptop(){
   
 
   //$ INGRESO DEL CODIGO
-  string codigo, procesador, grafica, ram;
+  string codigo, capacidad;
   bool encontrado;
 
   show_cursor();
@@ -863,14 +811,14 @@ void GestionarLaptops::editar_laptop(){
 
     change_color(244);
     gotoxy(56,6);
-    cout<<"EDITAR LAPTOP";
+    cout<<"EDITAR CUBICULO";
     change_color(240);
 
     gotoxy(50, 9);
     cout<<"CODIGO: ";
     rectangle(7, 1, 58, 8);
     gotoxy(59,9);
-    cout<<"L";
+    cout<<"C";
 
     if(codigo.size()>4){
       change_color(244);
@@ -883,7 +831,7 @@ void GestionarLaptops::editar_laptop(){
     cin>>codigo;
     
     for(int i=0; i<horarios_data.size(); i++){
-      if(horarios_data[i][0]== "L"+codigo){
+      if(horarios_data[i][0]== "C"+codigo){
         encontrado=true;
         break;
       }
@@ -893,17 +841,13 @@ void GestionarLaptops::editar_laptop(){
 
 
   //$ INGRESO Y COMPARACION DE LOS CAMBIOS
-  button(13, 1, 50, 12, "PROCESADOR");
-  button(13, 1, 62, 12, "GRAFICA");
-  button(13, 1, 74, 12, "RAM");
-  button(16, 1, 35, 14, "ACTUAL");
-  button(16, 1, 35, 16, "NUEVOS");
+  button(13, 1, 62, 12, "CAPACIDAD");
+  button(16, 1, 47, 14, "ACTUAL");
+  button(16, 1, 47, 16, "NUEVOS");
 
   for(int i=0; i<horarios_data.size(); i++){
-    if(horarios_data[i][0]=="L"+codigo){
-      procesador=horarios_data[i][7];
-      grafica=horarios_data[i][8];
-      ram=horarios_data[i][9];
+    if(horarios_data[i][0]=="C"+codigo){
+      capacidad=horarios_data[i][8];
       break;
     }
   }
@@ -913,36 +857,23 @@ void GestionarLaptops::editar_laptop(){
   cout<<"SI QUIERES DEJARLO VACIO SOLO PRESIONA ENTER";
   change_color(240);
 
-  button(13, 1, 50, 14, procesador);
-  button(13, 1, 62, 14, grafica);
-  button(13, 1, 74, 14, ram);
-  rectangle(13, 1, 50, 16);
+  button(13, 1, 62, 14, capacidad);
   rectangle(13, 1, 62, 16);
-  rectangle(13, 1, 74, 16);
 
   show_cursor();
   cin.ignore();
-  do{
-    gotoxy(50, 17);
-    cout<<"|           |           |           |";
-    gotoxy(51,17);
-    getline(cin, procesador);
-  } while(procesador.size()>11);
   
   do{
     gotoxy(62, 17);
-    cout<<"|           |           |        ";
+    cout<<"|           |    ";
     gotoxy(63,17);
-    getline(cin, grafica);
-  } while(grafica.size()>11);
+    getline(cin, capacidad);
+  } while(capacidad.size()>11);
+
+  if (capacidad==""){
+    capacidad=" ";
+  }
   
-  do{
-    gotoxy(74, 17);
-    cout<<"|           |        ";
-    gotoxy(75,17);
-    getline(cin, ram);
-  } while(ram.size()>11);
-  hide_cursor();
 
   //$ EDITAR DATOS O SALIR
   int tecla=75, opc=1;
@@ -965,10 +896,8 @@ void GestionarLaptops::editar_laptop(){
 
   if(opc==1){
     for(int i=0; i<horarios_data.size(); i++){
-      if(horarios_data[i][0]=="L"+codigo){
-        horarios_data[i][7]=procesador;
-        horarios_data[i][8]=grafica;
-        horarios_data[i][9]=ram;
+      if(horarios_data[i][0]=="C"+codigo){
+        horarios_data[i][8]=capacidad;
         break;
       }
     }
@@ -990,7 +919,7 @@ void GestionarLaptops::editar_laptop(){
   file2.close();
 }
 
-void GestionarLaptops::eliminar_laptop(){
+void GestionarCubiculos::eliminar_cubiculos(){
   //$ HORARIOS_DATA.CSV
   vector<vector<string>> horarios_data;
   ifstream file("horarios_data.csv");
@@ -1018,14 +947,14 @@ void GestionarLaptops::eliminar_laptop(){
 
   change_color(244);
   gotoxy(55, 7);
-  cout<<"ELIMINAR LAPTOP";
+  cout<<"ELIMINAR CUBICULO";
   change_color(240);
 
   gotoxy(55, 10);
   cout<<"CODIGO: ";
   rectangle(7, 1, 62, 9);
   gotoxy(63,10);
-  cout<<"L";
+  cout<<"C";
 
   button(12, 1, 45, 13, "ELIMINAR");
   button(12, 1, 66, 13, "CANCELAR");
@@ -1056,7 +985,7 @@ void GestionarLaptops::eliminar_laptop(){
     cin>>codigo;
 
     for(int i=0; i<horarios_data.size(); i++){
-      if(horarios_data[i][0]=="L"+codigo){
+      if(horarios_data[i][0]=="C"+codigo){
         encontrado=true;
         break;
       }
@@ -1065,7 +994,7 @@ void GestionarLaptops::eliminar_laptop(){
   } while(codigo.size()>4 || !encontrado);
   hide_cursor();
 
-  //$ ELIMINAR LAPTOP O CANCELAR
+  //$ ELIMINAR CUBICULO O CANCELAR
   int tecla=75, opc=1;
   while(tecla!=13){
     if(tecla==75){
@@ -1086,7 +1015,7 @@ void GestionarLaptops::eliminar_laptop(){
 
   if(opc==1){
     for(int i=0; i<horarios_data.size(); i++){
-      if(horarios_data[i][0]=="L"+codigo){
+      if(horarios_data[i][0]=="C"+codigo){
         horarios_data.erase(horarios_data.begin()+i);
       }
     }
@@ -1107,7 +1036,7 @@ void GestionarLaptops::eliminar_laptop(){
   file2.close();
 }
 
-void GestionarLaptops::estado_laptop(){
+void GestionarCubiculos::estado_cubiculos(){
   //$ HORARIOS_DATA.CSV
   vector<vector<string>> horarios_data;
   ifstream file("horarios_data.csv");
@@ -1135,19 +1064,18 @@ void GestionarLaptops::estado_laptop(){
 
   change_color(244);
   gotoxy(51, 7);
-  cout<<"EDITAR ESTADO DE LAPTOP";
+  cout<<"EDITAR ESTADO DE CUBICULO";
   change_color(240);
 
   gotoxy(55, 10);
   cout<<"CODIGO: ";
   rectangle(7, 1, 62, 9);
   gotoxy(63,10);
-  cout<<"L";
+  cout<<"C";
 
-  button(15, 1, 26, 13, "Habilitado");
-  button(15, 1, 44, 13, "Mantenimiento");
-  button(15, 1, 62, 13, "Malogrado");
-  button(15, 1, 80, 13, "No Disponible");
+  button(15, 1, 30, 13, "Habilitado");
+  button(15, 1, 55, 13, "Limpieza");
+  button(15, 1, 76, 13, "No Disponible");
 
 
   //$ INGRESO DEL CODIGO
@@ -1176,7 +1104,7 @@ void GestionarLaptops::estado_laptop(){
     cin>>codigo;
 
     for(int i=0; i<horarios_data.size(); i++){
-      if(horarios_data[i][0]=="L"+codigo){
+      if(horarios_data[i][0]=="C"+codigo){
         encontrado=true;
         break;
       }
@@ -1199,37 +1127,25 @@ void GestionarLaptops::estado_laptop(){
     switch(opc){
       case 1:
         change_color(241);
-        button(15, 1, 26, 13, "Habilitado");
+        button(15, 1, 30, 13, "Habilitado");
         change_color(240);
-        button(15, 1, 44, 13, "Mantenimiento");
-        button(15, 1, 62, 13, "Malogrado");
-        button(15, 1, 80, 13, "No Disponible");
+        button(15, 1, 55, 13, "Limpieza");
+        button(15, 1, 76, 13, "No Disponible");
         estado="Habilitado";
         break;
       case 2:
-        button(15, 1, 26, 13, "Habilitado");
+        button(15, 1, 30, 13, "Habilitado");
         change_color(241);
-        button(15, 1, 44, 13, "Mantenimiento");
+        button(15, 1, 55, 13, "Limpieza");
         change_color(240);
-        button(15, 1, 62, 13, "Malogrado");
-        button(15, 1, 80, 13, "No Disponible");
-        estado="Mantenimiento";
+        button(15, 1, 76, 13, "No Disponible");
+        estado="Limpieza";
         break;
       case 3:
-        button(15, 1, 26, 13, "Habilitado");
-        button(15, 1, 44, 13, "Mantenimiento");
+        button(15, 1, 30, 13, "Habilitado");
+        button(15, 1, 55, 13, "Limpieza");
         change_color(241);
-        button(15, 1, 62, 13, "Malogrado");
-        change_color(240);
-        button(15, 1, 80, 13, "No Disponible");
-        estado="Malogrado";
-        break;
-      case 4:
-        button(15, 1, 26, 13, "Habilitado");
-        button(15, 1, 44, 13, "Mantenimiento");
-        button(15, 1, 62, 13, "Malogrado");
-        change_color(241);
-        button(15, 1, 80, 13, "No Disponible");
+        button(15, 1, 76, 13, "No Disponible");
         change_color(240);
         estado="No Disponible";
         break;
@@ -1260,8 +1176,8 @@ void GestionarLaptops::estado_laptop(){
 
   if(opc2==1){
     for(int i=0; i<horarios_data.size(); i++){
-      if(horarios_data[i][0]=="L"+codigo){
-        horarios_data[i][10]=estado;
+      if(horarios_data[i][0]=="C"+codigo){
+        horarios_data[i][7]=estado;
         break;
       }
     }
@@ -1283,7 +1199,7 @@ void GestionarLaptops::estado_laptop(){
   file2.close();
 }
 
-void GestionarLaptops::seleccionar_opcion(GestorVentanas& gestor){
+void GestionarCubiculos::seleccionar_opcion(GestorVentanas& gestor){
   int tecla=72, opc=1;
   int x=1, y=1;
 
@@ -1295,83 +1211,83 @@ void GestionarLaptops::seleccionar_opcion(GestorVentanas& gestor){
 
     if(x==1 && y==1){
       change_color(241);
-      button(25, 1, 22, 9, "Ver Laptops");
+      button(25, 1, 22, 9, "Ver Cubiculos");
       change_color(240);
-      button(25, 1, 48, 9, "Cantidad de Laptops");
-      button(25, 1, 74, 9, "Anadir Laptop");
-      button(25, 1, 22, 13, "Editar Laptop");
-      button(25, 1, 48, 13, "Eliminar Laptop");
-      button(25, 1, 74, 13, "Estado de Laptops");
+      button(25, 1, 48, 9, "Cantidad de Cubiculos");
+      button(25, 1, 74, 9, "Anadir Cubiculo");
+      button(25, 1, 22, 13, "Editar Cubiculo");
+      button(25, 1, 48, 13, "Eliminar Cubiculo");
+      button(25, 1, 74, 13, "Estado de Cubiculos");
       button(25, 1, 48, 17, "SALIR");
       opc=1;
 
     } else if(x==2 && y==1){
-      button(25, 1, 22, 9, "Ver Laptops");
+      button(25, 1, 22, 9, "Ver Cubiculos");
       change_color(241);
-      button(25, 1, 48, 9, "Cantidad de Laptops");
+      button(25, 1, 48, 9, "Cantidad de Cubiculos");
       change_color(240);
-      button(25, 1, 74, 9, "Anadir Laptop");
-      button(25, 1, 22, 13, "Editar Laptop");
-      button(25, 1, 48, 13, "Eliminar Laptop");
-      button(25, 1, 74, 13, "Estado de Laptops");
+      button(25, 1, 74, 9, "Anadir Cubiculo");
+      button(25, 1, 22, 13, "Editar Cubiculo");
+      button(25, 1, 48, 13, "Eliminar Cubiculo");
+      button(25, 1, 74, 13, "Estado de Cubiculos");
       button(25, 1, 48, 17, "SALIR");
       opc=2;
 
     } else if(x==3 && y==1){
-      button(25, 1, 22, 9, "Ver Laptops");
-      button(25, 1, 48, 9, "Cantidad de Laptops");
+      button(25, 1, 22, 9, "Ver Cubiculos");
+      button(25, 1, 48, 9, "Cantidad de Cubiculos");
       change_color(241);
-      button(25, 1, 74, 9, "Anadir Laptop");
+      button(25, 1, 74, 9, "Anadir Cubiculo");
       change_color(240);
-      button(25, 1, 22, 13, "Editar Laptop");
-      button(25, 1, 48, 13, "Eliminar Laptop");
-      button(25, 1, 74, 13, "Estado de Laptops");
+      button(25, 1, 22, 13, "Editar Cubiculo");
+      button(25, 1, 48, 13, "Eliminar Cubiculo");
+      button(25, 1, 74, 13, "Estado de Cubiculos");
       button(25, 1, 48, 17, "SALIR");
       opc=3;
 
     } else if(x==1 && y==2){
-      button(25, 1, 22, 9, "Ver Laptops");
-      button(25, 1, 48, 9, "Cantidad de Laptops");
-      button(25, 1, 74, 9, "Anadir Laptop");
+      button(25, 1, 22, 9, "Ver Cubiculos");
+      button(25, 1, 48, 9, "Cantidad de Cubiculos");
+      button(25, 1, 74, 9, "Anadir Cubiculo");
       change_color(241);
-      button(25, 1, 22, 13, "Editar Laptop");
+      button(25, 1, 22, 13, "Editar Cubiculo");
       change_color(240);
-      button(25, 1, 48, 13, "Eliminar Laptop");
-      button(25, 1, 74, 13, "Estado de Laptops");
+      button(25, 1, 48, 13, "Eliminar Cubiculo");
+      button(25, 1, 74, 13, "Estado de Cubiculos");
       button(25, 1, 48, 17, "SALIR");
       opc=4;
 
     } else if(x==2 && y==2){
-      button(25, 1, 22, 9, "Ver Laptops");
-      button(25, 1, 48, 9, "Cantidad de Laptops");
-      button(25, 1, 74, 9, "Anadir Laptop");
-      button(25, 1, 22, 13, "Editar Laptop");
+      button(25, 1, 22, 9, "Ver Cubiculos");
+      button(25, 1, 48, 9, "Cantidad de Cubiculos");
+      button(25, 1, 74, 9, "Anadir Cubiculo");
+      button(25, 1, 22, 13, "Editar Cubiculo");
       change_color(241);
-      button(25, 1, 48, 13, "Eliminar Laptop");
+      button(25, 1, 48, 13, "Eliminar Cubiculo");
       change_color(240);
-      button(25, 1, 74, 13, "Estado de Laptops");
+      button(25, 1, 74, 13, "Estado de Cubiculos");
       button(25, 1, 48, 17, "SALIR");
       opc=5;
 
     } else if(x==3 && y==2){
-      button(25, 1, 22, 9, "Ver Laptops");
-      button(25, 1, 48, 9, "Cantidad de Laptops");
-      button(25, 1, 74, 9, "Anadir Laptop");
-      button(25, 1, 22, 13, "Editar Laptop");
-      button(25, 1, 48, 13, "Eliminar Laptop");
+      button(25, 1, 22, 9, "Ver Cubiculos");
+      button(25, 1, 48, 9, "Cantidad de Cubiculos");
+      button(25, 1, 74, 9, "Anadir Cubiculo");
+      button(25, 1, 22, 13, "Editar Cubiculo");
+      button(25, 1, 48, 13, "Eliminar Cubiculo");
       change_color(241);
-      button(25, 1, 74, 13, "Estado de Laptops");
+      button(25, 1, 74, 13, "Estado de Cubiculos");
       change_color(240);
       button(25, 1, 48, 17, "SALIR");
       opc=6;
 
     } else if(y=3){
-      button(25, 1, 22, 9, "Ver Laptops");
-      button(25, 1, 48, 9, "Cantidad de Laptops");
-      button(25, 1, 74, 9, "Anadir Laptop");
-      button(25, 1, 22, 13, "Editar Laptop");
-      button(25, 1, 48, 13, "Eliminar Laptop");
-      button(25, 1, 74, 13, "Estado de Laptops");
+      button(25, 1, 22, 9, "Ver Cubiculos");
+      button(25, 1, 48, 9, "Cantidad de Cubiculos");
+      button(25, 1, 74, 9, "Anadir Cubiculo");
+      button(25, 1, 22, 13, "Editar Cubiculo");
+      button(25, 1, 48, 13, "Eliminar Cubiculo");
+      button(25, 1, 74, 13, "Estado de Cubiculos");
       change_color(241);
       button(25, 1, 48, 17, "SALIR");
       change_color(240);
@@ -1383,22 +1299,22 @@ void GestionarLaptops::seleccionar_opcion(GestorVentanas& gestor){
 
   switch(opc){
     case 1:
-      GestionarLaptops::ver_laptops();
+      GestionarCubiculos::ver_cubiculos();
       break;
     case 2:
-      GestionarLaptops::cantidad_laptops();
+      GestionarCubiculos::cantidad_cubiculos();
       break;
     case 3:
-      GestionarLaptops::anadir_laptop();
+      GestionarCubiculos::anadir_cubiculos();
       break;
     case 4:
-      GestionarLaptops::editar_laptop();
+      GestionarCubiculos::editar_cubiculos();
       break;
     case 5:
-      GestionarLaptops::eliminar_laptop();
+      GestionarCubiculos::eliminar_cubiculos();
       break;
     case 6:
-      GestionarLaptops::estado_laptop();
+      GestionarCubiculos::estado_cubiculos();
       break;
     case 7:
       gestor.cambiar_ventana(Ventanas::ADMINMAIN);
@@ -1406,7 +1322,7 @@ void GestionarLaptops::seleccionar_opcion(GestorVentanas& gestor){
   }
 }
 
-void GestionarLaptops::main(GestorVentanas& gestor) {
+void GestionarCubiculos::main(GestorVentanas& gestor) {
   mostrar();
   seleccionar_opcion(gestor);
 }

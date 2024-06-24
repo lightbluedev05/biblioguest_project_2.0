@@ -41,6 +41,12 @@ void GestorVentanas::iniciar(){
       case Ventanas::GESTIONARLAPTOPS:
         gestionar_laptops->main(*this);
         break;
+      case Ventanas::GESTIONARCUBICULOS:
+        gestionar_cubiculos->main(*this);
+        break;
+      case Ventanas::ADMINHISTORY:
+        admin_history->main(*this);
+        break;
     }
   }
 }

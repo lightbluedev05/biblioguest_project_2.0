@@ -11,8 +11,10 @@ class AdminVerificar{
 
     static char letra;
     static int aux;
+    static std::string codigo_busqueda;
     static std::string codigo_encontrado;
     static std::string codigo_estudiante;
+    static std::vector<std::vector<std::string>> reservas_historial;
     void ingresar_codigo(GestorVentanas& gestor);
     void mostrar(GestorVentanas& gestor);
     void main(GestorVentanas& gestor);

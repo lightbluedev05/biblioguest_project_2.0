@@ -10,13 +10,16 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <ctime>
 
 using namespace std;
 
 string LaptopReserva::codigo_laptop;
 string LaptopReserva::horario_laptop;
+string LaptopReserva::codigo_reserva;
 vector<vector<string>> LaptopReserva::horarios_data;
 vector<vector<string>> LaptopReserva::reservas_data;
+vector<vector<string>> LaptopReserva::reservas_historial;
 vector<vector<int>> LaptopReserva::historial;
 
 void LaptopReserva::mostrar(){
@@ -139,12 +142,15 @@ void LaptopReserva::ingresar_datos(GestorVentanas& gestor){
     gotoxy(61, 8);
     cin>>LaptopReserva::codigo_laptop;
 
-    for(int i=0; i<20; i++){
-      if(LaptopReserva::codigo_laptop==LaptopReserva::horarios_data[i][0]){
-        valido = true;
-        break;
+    if(LaptopReserva::codigo_laptop[0]=='L'){
+      for(int i=0; i<LaptopReserva::horarios_data.size(); i++){
+        if(LaptopReserva::codigo_laptop==LaptopReserva::horarios_data[i][0]){
+          valido = true;
+          break;
+        }
       }
     }
+
     gotoxy(77, 8);
     if(!valido){
       fallidos += 1;
@@ -275,7 +281,7 @@ void LaptopReserva::comprobacion_de_datos(GestorVentanas& gestor){
   int busqueda=0, horario_aux, linea;
 
   for(int i=0; i<r_data.size(); i++){
-    if(r_data[i][2]==gestor.codigo && r_data[i][0][1]=='B'){
+    if(r_data[i][2]==gestor.codigo && r_data[i][0][0]=='L'){
       //$ CODIGO YA UTILIZADO
       busqueda=3;
       break;
@@ -319,6 +325,18 @@ void LaptopReserva::comprobacion_de_datos(GestorVentanas& gestor){
   if(busqueda!=3 && busqueda!=4){
     for(int i=0; i<data.size(); i++){
       if(data[i][0]==LaptopReserva::codigo_laptop){
+        if(data[i][10]!="Habilitado"){
+          linea=i;
+          busqueda=5;
+          break;
+        }
+      }
+    }
+  }
+
+  if(busqueda!=3 && busqueda!=4 && busqueda!=5){
+    for(int i=0; i<data.size(); i++){
+      if(data[i][0]==LaptopReserva::codigo_laptop){
         linea = i;
         horario_aux = stoi(LaptopReserva::horario_laptop);
         if(data[i][horario_aux] == "1"){
@@ -353,6 +371,8 @@ void LaptopReserva::comprobacion_de_datos(GestorVentanas& gestor){
       ejecutar_reserva(gestor, linea, horario_aux);
       gotoxy(45, 12);
       cout<<"RESERVA EJECUTADA CON EXITO :)";
+      gotoxy(40, 15);
+      cout<<"CODIGO DE RESERVA: "<<LaptopReserva::codigo_reserva;
       change_color(241);
       gotoxy(41,13);
       cout<<"PRESIONE CUALQUIER TECLA PARA CONTINUAR";
@@ -377,12 +397,66 @@ void LaptopReserva::comprobacion_de_datos(GestorVentanas& gestor){
       change_color(240);
       gestor.cambiar_ventana(Ventanas::LAPTOPMAIN);
       break;
+    case 5:
+      gotoxy(44, 12);
+      cout<<"ESTA LAPTOP NO ESTA HABILITADO";
+      change_color(241);
+      gotoxy(41,13);
+      cout<<"SU ESTADO ES EL SIGUIENTE: "<<data[linea][10];
+      change_color(240);
+      gestor.cambiar_ventana(Ventanas::LAPTOPMAIN);
+      break;
   }
 
   getch();
 }
 
 void LaptopReserva::ejecutar_reserva(GestorVentanas& gestor, int laptop, int horario){
+
+  ifstream file_5("reservas_history.csv");
+  string linea_5;
+
+  LaptopReserva::reservas_historial.clear();
+
+  //$ Leer datos desde el archivo CSV y almacenar en reservas_historial
+  while (getline(file_5, linea_5)) {
+      vector<string> reservas = {};
+      string reserva = "";
+      stringstream ss(linea_5);
+
+      while (getline(ss, reserva, ',')) {
+          reservas.push_back(reserva);
+      }
+
+      LaptopReserva::reservas_historial.push_back(reservas);
+  }
+
+  file_5.close();
+
+
+  //$ -----------------------------------------------------------
+  srand(time(0));
+
+  bool encontrado = true;
+  while (encontrado) {
+      // Generar código de reserva aleatorio
+      LaptopReserva::codigo_reserva = "";
+      string caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+      for (int i = 0; i < 5; ++i) {
+          int indiceAleatorio = rand() % caracteres.length();
+          LaptopReserva::codigo_reserva += caracteres[indiceAleatorio];
+      }
+
+      encontrado = false;
+      // Verificar si el código de reserva generado ya existe en el historial
+      for (int i = 0; i < LaptopReserva::reservas_historial.size(); i++) {
+          if (LaptopReserva::reservas_historial[i][0] == LaptopReserva::codigo_reserva) {
+              encontrado = true;
+              break;
+          }
+      }
+  }
+
   ofstream file("horarios_data.csv");
   
   vector<vector<string>> data = LaptopReserva::horarios_data;
@@ -402,7 +476,7 @@ void LaptopReserva::ejecutar_reserva(GestorVentanas& gestor, int laptop, int hor
   file.close();
 
   ofstream file_2("reservas_data.csv", ios::app);
-  file_2<<LaptopReserva::codigo_laptop<<","<<LaptopReserva::horario_laptop<<","<<gestor.codigo<<"\n";
+  file_2<<LaptopReserva::codigo_laptop<<","<<LaptopReserva::horario_laptop<<","<<gestor.codigo<<","<<LaptopReserva::codigo_reserva<<"\n";
   file_2.close();
 
   for(int i = 0; i < LaptopReserva::historial.size(); i++) {
@@ -425,6 +499,30 @@ void LaptopReserva::ejecutar_reserva(GestorVentanas& gestor, int laptop, int hor
     file_3<<"\n";
   }
   file_3.close();
+
+  time_t tiempoActual = time(NULL);
+  tm* tiempoLocal = localtime(&tiempoActual);
+  int diaActual = tiempoLocal->tm_mday;
+  int mesActual = tiempoLocal->tm_mon + 1;
+  int anioActual = tiempoLocal->tm_year + 1900;
+
+  vector<string> nuevaReserva = {LaptopReserva::codigo_reserva, LaptopReserva::codigo_laptop, gestor.codigo, LaptopReserva::horario_laptop, to_string(diaActual), to_string(mesActual), to_string(anioActual), "NO"};
+  LaptopReserva::reservas_historial.push_back(nuevaReserva);
+
+  ofstream file_6("reservas_history.csv");
+
+  for (int i = 0; i < LaptopReserva::reservas_historial.size(); i++) {
+      for (int j = 0; j < LaptopReserva::reservas_historial[i].size(); j++) {
+          file_6 << LaptopReserva::reservas_historial[i][j];
+          if (j < LaptopReserva::reservas_historial[i].size() - 1) {
+              file_6 << ",";
+          }
+      }
+      file_6 << "\n";
+  }
+
+  file_6.close();
+
 }
 
 void LaptopReserva::main(GestorVentanas& gestor){

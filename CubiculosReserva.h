@@ -12,6 +12,8 @@ class CubiculosReserva {
     static std::vector<std::vector<std::string>> horarios_data;
     static std::vector<std::vector<std::string>> reservas_data;
     static std::vector<std::vector<int>> historial;
+    static std::string codigo_reserva;
+    static std::vector<std::vector<std::string>> reservas_historial;
 
     //METODOS
     void mostrar();
