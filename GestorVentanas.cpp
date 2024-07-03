@@ -47,6 +47,9 @@ void GestorVentanas::iniciar(){
       case Ventanas::ADMINHISTORY:
         admin_history->main(*this);
         break;
+      case Ventanas::ADMININFORME:
+        admin_informe->main(*this);
+        break;
     }
   }
 }
