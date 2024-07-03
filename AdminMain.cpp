@@ -246,6 +246,7 @@ void AdminMain::seleccionar_opcion(GestorVentanas& gestor) {
         
         //$ TOPS
         case 7:
+            gestor.cambiar_ventana(Ventanas::ADMININFORME);
             break;
 
         //$ SALIR
