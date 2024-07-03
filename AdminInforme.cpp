@@ -469,13 +469,13 @@ void horario_pico() {
 }
 
 void AdminInforme::dibujar(GestorVentanas& gestor) {
-  int opc = 0, tecla = 77;
+  int opc = 1, tecla = 72;
   while (tecla != 13) {
 
-      if (tecla == 75 && opc > 1) {
+      if (tecla == 72 && opc > 1) {
           opc--;
       }
-      if (tecla == 77 && opc < 4) {
+      if (tecla == 80 && opc < 4) {
           opc++;
       }
 

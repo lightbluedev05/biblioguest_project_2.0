@@ -49,6 +49,36 @@ void MainWindow::mostrar(){
 
 }
 
+void dibujar_easter_egg(){
+  system("cls");
+  change_color(249);
+  gotoxy(0, 6);
+  constexpr string_view dibujo[] = {
+    "\t\t\t\t                      ↑ ↓ ↑ ← →",
+    "\t\t\t\t          ESTE PROGRAMA HA SIDO CREADO POR:",
+    "\t\t\t",
+    "\t\t\t\t     █████     █████     █████     █████     █████",
+    "\t\t\t\t     █████     █████     █████     █████     █████",
+    "\t\t\t\t     ╔═█═╗     ╔═█═╗     ╔═█═╗     ╔═█═╗     ╔═█═╗",
+    "\t\t\t\t     ║ █ ║     ║ █ ║     ║ █ ║     ║ █ ║     ║ █ ║",
+    "\t\t\t\t     ║ █ ║     ║ █ ║     ║ █ ║     ║ █ ║     ║ █ ║",
+    "\t\t\t\t      █ █       █ █       █ █       █ █       █ █",
+    "\t\t\t\t      █ █       █ █       █ █       █ █       █ █",
+    "\t\t\t\t      █ █       █ █       █ █       █ █       █ █",
+    "\t\t\t\t     ═╝ ╚═     ═╝ ╚═     ═╝ ╚═     ═╝ ╚═     ═╝ ╚═",
+    "\t\t\t\t     MIHAEL    MIGUEL   FABRIZIO  GUILLERMO  JOHAN",
+    "\t\t\t",
+    "\t\t\t\t                   Ciclo 2024-1",
+    "\t\t\t\t          Presione ENTER para continuar...",
+  };
+
+  for(int i=0; i<size(dibujo); i++){
+    cout<<dibujo[i]<<endl;
+  }
+
+  getch();
+}
+
 void MainWindow::seleccionar_ventana(GestorVentanas& gestor){
   int opc=0, tecla=72, frame=1, primera_vez=1;
   vector<int> easter_egg;
@@ -158,8 +188,10 @@ void MainWindow::seleccionar_ventana(GestorVentanas& gestor){
             if(easter_egg[5]==72){
               if(easter_egg[7]==75){
                 if(easter_egg[9]==77){
-                  cout<<"LOGRASTE EL EASTER EGG";
-                  getch();
+                  dibujar_easter_egg();
+                  MainWindow::mostrar();
+                  primera_vez=0;
+                  tecla=72;
                 }
               }
             }
@@ -167,7 +199,7 @@ void MainWindow::seleccionar_ventana(GestorVentanas& gestor){
         }
       }
     }
-    primera_vez=0;
+    primera_vez++;
   }
 
   switch(opc){
