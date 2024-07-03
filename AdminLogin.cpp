@@ -58,6 +58,37 @@ void AdminLogin::mostrar(){
   gotoxy(66, 24);
   cout<<"+-----------+";
 
+
+  //$ DIBUJO
+  change_color(120);
+  for(int i=0; i<2; i++){
+    gotoxy(15+(i*83), 3); cout<<" ████╗ ";
+    gotoxy(15+(i*83), 4); cout<<"██╔═██╗";
+    gotoxy(15+(i*83), 5); cout<<"██████║";
+    gotoxy(15+(i*83), 6); cout<<"██╔═██║";
+    gotoxy(15+(i*83), 7); cout<<"╚═╝ ╚═╝";
+    gotoxy(15+(i*83), 8); cout<<"█████╗ ";
+    gotoxy(15+(i*83), 9); cout<<"██╔═██╗";
+    gotoxy(15+(i*83), 10); cout<<"██║ ██║";
+    gotoxy(15+(i*83), 11); cout<<"█████╔╝";
+    gotoxy(15+(i*83), 12); cout<<"╚════╝ ";
+    gotoxy(14+(i*83), 13); cout<<"███╗  ███╗";
+    gotoxy(14+(i*83), 14); cout<<"████╗████║";
+    gotoxy(14+(i*83), 15); cout<<"██╔███╔██║";
+    gotoxy(14+(i*83), 16); cout<<"██║╚█╔╝██║";
+    gotoxy(14+(i*83), 17); cout<<"╚═╝ ═╝ ╚═╝";
+    gotoxy(18+(i*83), 18); cout<<"██╗";
+    gotoxy(18+(i*83), 19); cout<<"██║";
+    gotoxy(18+(i*83), 20); cout<<"██║";
+    gotoxy(18+(i*83), 21); cout<<"██║";
+    gotoxy(18+(i*83), 22); cout<<"╚═╝";
+    gotoxy(15+(i*83), 23); cout<<"███╗ ██╗";
+    gotoxy(15+(i*83), 24); cout<<"████╗██║";
+    gotoxy(15+(i*83), 25); cout<<"██╔████║";
+    gotoxy(15+(i*83), 26); cout<<"██║ ███║";
+    gotoxy(15+(i*83), 27); cout<<"╚═╝ ╚══╝";
+  }
+  change_color(240);
 }
 
 void AdminLogin::ingresar_credenciales(GestorVentanas& gestor){

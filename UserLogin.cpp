@@ -72,6 +72,43 @@ void UserLogin::mostrar(){
   gotoxy(66, 24);
   cout<<"+-----------+";
 
+  //$ DIBUJO
+  change_color(120);
+  
+  constexpr std::string_view texto[] = {
+    "██╗   ██╗",
+    "██║   ██║",
+    "██║   ██║",
+    "██║   ██║",
+    "╚██████╔╝",
+    " ╚═════╝ ",
+    "███████╗",
+    "██╔════╝",
+    "███████╗",
+    "╚════██║",
+    "███████║",
+    "╚══════╝",
+    "███████╗",
+    "██╔════╝",
+    "█████╗  ",
+    "██╔══╝  ",
+    "███████╗",
+    "╚══════╝",
+    "██████╗ ",
+    "██╔══██╗",
+    "██████╔╝",
+    "██╔══██╗",
+    "██║  ██║",
+    "╚═╝  ╚═╝"
+  };
+
+  for(int k=0; k<2; k++){
+    for(int i=0; i<size(texto); i++){
+      gotoxy(15+(k*83), 3+i);
+      cout<<texto[i];
+    }
+  }
+  change_color(240);
 }
 
 void UserLogin::ingresar_credenciales(GestorVentanas& gestor){

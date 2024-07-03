@@ -50,58 +50,124 @@ void MainWindow::mostrar(){
 }
 
 void MainWindow::seleccionar_ventana(GestorVentanas& gestor){
-  int opc=1, tecla=72;
+  int opc=0, tecla=72, frame=1, primera_vez=1;
+  vector<int> easter_egg;
   while(tecla!=13){
-    switch(tecla){
-      case 72: 
-        change_color(241);
-        gotoxy(44, 12);
-        cout << "+-----------------------+";
-        gotoxy(42, 13);
-        cout << "->|     Ingresar como     |";
-        gotoxy(44, 14);
-        cout << "|       un Alumno       |";
-        gotoxy(44, 15);
-        cout << "+-----------------------+";
-
-        change_color(240);
-        gotoxy(44, 17);
-        cout << "+-----------------------+";
-        gotoxy(42, 18);
-        cout << "  |     Ingresar como     |";
-        gotoxy(44, 19);
-        cout << "|     Administrador     |";
-        gotoxy(44, 20);
-        cout << "+-----------------------+";
-
-        opc=1;
-        break;
-      case 80:
-        change_color(240);
-        gotoxy(44, 12);
-        cout << "+-----------------------+";
-        gotoxy(42, 13);
-        cout << "  |     Ingresar como     |";
-        gotoxy(44, 14);
-        cout << "|       un Alumno       |";
-        gotoxy(44, 15);
-        cout << "+-----------------------+";
-
-        change_color(241);
-        gotoxy(44, 17);
-        cout << "+-----------------------+";
-        gotoxy(42, 18);
-        cout << "->|     Ingresar como     |";
-        gotoxy(44, 19);
-        cout << "|     Administrador     |";
-        gotoxy(44, 20);
-        cout << "+-----------------------+";
-        
-        opc=0;
-        break;
+    //$ DIBUJO ANIMADO
+    if(frame>0 && frame<=1000){
+      change_color(244);
+    } else if(frame>1000 && frame<=2000){
+      change_color(241);
+    } else if(frame>2000 && frame<=3000){
+      change_color(246);
     }
+
+    gotoxy(33,2);
+    cout << " ____  _ __    ___       ______                __ "<<endl;
     
-    tecla = _getch();
+    gotoxy(32,3);
+    cout << " / __ )(_) /_  / (_)___  / ____/_  _____  _____/ /_"<<endl;
+    
+    gotoxy(31,4);
+    cout << " / __  / / __ |/ / / __ |/ / __/ / / / _ |/ ___/ __/"<<endl;
+    
+    gotoxy(30,5);
+    cout << " / /_/ / / /_/ / / / /_/ / /_/ / /_/ /  __(__  ) /_ "<<endl;
+    
+    gotoxy(30,6);
+    cout << "/_____/_/_____/_/_/|____/|____/|____/|___/____/|__/"<<endl;
+
+    if(frame<3000){
+      frame++;
+    } else{
+      frame=1;
+    }
+
+    //$ TECLA PRESIONADA
+    if(_kbhit() || primera_vez==1){
+      if(primera_vez!=1){
+        tecla = _getch();
+      }
+      
+      //$ EASTER EGG
+      if(easter_egg.size()==10){
+        for(int i=0; i<8; i++){
+          easter_egg[i]=easter_egg[i+2];
+        }
+        easter_egg.erase(easter_egg.begin()+8);
+        easter_egg.erase(easter_egg.begin()+9);
+      }
+
+      if(primera_vez!=1){
+        easter_egg.push_back(tecla);
+      }
+      
+
+      switch(tecla){
+        case 72: 
+          change_color(241);
+          gotoxy(44, 12);
+          cout << "+-----------------------+";
+          gotoxy(42, 13);
+          cout << "->|     Ingresar como     |";
+          gotoxy(44, 14);
+          cout << "|       un Alumno       |";
+          gotoxy(44, 15);
+          cout << "+-----------------------+";
+
+          change_color(240);
+          gotoxy(44, 17);
+          cout << "+-----------------------+";
+          gotoxy(42, 18);
+          cout << "  |     Ingresar como     |";
+          gotoxy(44, 19);
+          cout << "|     Administrador     |";
+          gotoxy(44, 20);
+          cout << "+-----------------------+";
+
+          opc=1;
+          break;
+        case 80:
+          change_color(240);
+          gotoxy(44, 12);
+          cout << "+-----------------------+";
+          gotoxy(42, 13);
+          cout << "  |     Ingresar como     |";
+          gotoxy(44, 14);
+          cout << "|       un Alumno       |";
+          gotoxy(44, 15);
+          cout << "+-----------------------+";
+
+          change_color(241);
+          gotoxy(44, 17);
+          cout << "+-----------------------+";
+          gotoxy(42, 18);
+          cout << "->|     Ingresar como     |";
+          gotoxy(44, 19);
+          cout << "|     Administrador     |";
+          gotoxy(44, 20);
+          cout << "+-----------------------+";
+          
+          opc=0;
+          break;
+      }
+
+      if(easter_egg.size()==10){
+        if(easter_egg[1]==72){
+          if(easter_egg[3]==80){
+            if(easter_egg[5]==72){
+              if(easter_egg[7]==75){
+                if(easter_egg[9]==77){
+                  cout<<"LOGRASTE EL EASTER EGG";
+                  getch();
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    primera_vez=0;
   }
 
   switch(opc){
