@@ -73,6 +73,7 @@ void CubiculosReserva::mostrar(){
   gotoxy(68,20);
   cout<<"ATRAS";
 
+  hide_cursor();
 }
 
 void CubiculosReserva::conseguir_data(){
@@ -130,6 +131,7 @@ void CubiculosReserva::conseguir_data(){
 }
 
 void CubiculosReserva::ingresar_datos(GestorVentanas& gestor){
+  show_cursor();
   int controlador=0;
   bool encontrado;
   do{
@@ -160,6 +162,7 @@ void CubiculosReserva::ingresar_datos(GestorVentanas& gestor){
       }
     }
   } while(!encontrado);
+  hide_cursor();
 
   //$ SELECCION DE HORARIO
   int aux_x=0, aux_y=0, tecla=75;
@@ -352,10 +355,6 @@ void CubiculosReserva::comprobacion_de_datos(GestorVentanas& gestor){
   }
   
   system("cls");
-
-  cout<<data[linea][5]<<endl;
-  cout<<data[linea][6]<<endl;
-  cout<<data[linea][7]<<endl;
 
   switch(busqueda){
     case 0:
