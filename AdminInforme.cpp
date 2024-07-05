@@ -534,5 +534,5 @@ void AdminInforme::dibujar(GestorVentanas& gestor) {
 void AdminInforme::main(GestorVentanas& gestor) {
     AdminInforme::mostrar(gestor);
     AdminInforme::dibujar(gestor);
-    getch();
+    gestor.cambiar_ventana(Ventanas::ADMINMAIN);
 }

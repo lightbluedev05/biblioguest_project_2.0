@@ -70,6 +70,7 @@ void dibujar_easter_egg(){
     "\t\t\t",
     "\t\t\t\t                   Ciclo 2024-1",
     "\t\t\t\t          Presione ENTER para continuar...",
+    "\t\t\t\t               Made by: TeamYapita <3"
   };
 
   for(int i=0; i<size(dibujo); i++){

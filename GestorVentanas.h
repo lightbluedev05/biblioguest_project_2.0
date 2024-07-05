@@ -64,7 +64,7 @@ class GestorVentanas {
     void cambiar_ventana(Ventanas nueva_ventana);
     void terminar_programa();
   private:
-    Ventanas ventana_actual=Ventanas::MAINWINDOW;
+    Ventanas ventana_actual=Ventanas::ADMINMAIN;
     //CREAR UN OBJETO DE CADA VENTANA
     MainWindow* main_window;
     UserLogin* user_login;
