@@ -487,8 +487,8 @@ void AdminInforme::dibujar(GestorVentanas& gestor) {
               gotoxy(12,4);
               cout<<"ALUMNOS CON MAS RESERVAS";
               change_color(240);
-              change_color(241);
-              gotoxy(3,6);cout<<"^^^";
+              change_color(113);
+              gotoxy(3,6);cout<<"^^^^";
               change_color(244);
               gotoxy(3,8);cout<<"████";
               gotoxy(3,9);cout<<"████";
@@ -499,8 +499,8 @@ void AdminInforme::dibujar(GestorVentanas& gestor) {
               gotoxy(3,17);cout<<"████";
               gotoxy(3,20);cout<<"████";
               gotoxy(3,21);cout<<"████";
-              change_color(241);
-              gotoxy(3,23);cout<<"vvv";
+              change_color(113);
+              gotoxy(3,23);cout<<"vvvv";
               change_color(240);
               break;
           // Ver tabla
@@ -510,8 +510,8 @@ void AdminInforme::dibujar(GestorVentanas& gestor) {
               gotoxy(12,4);   
               cout<<"CUBICULOS USADOS";
               change_color(240);
-              change_color(241);
-              gotoxy(3,6);cout<<"^^^";
+              change_color(113);
+              gotoxy(3,6);cout<<"^^^^";
               change_color(240);
               gotoxy(3,8);cout<<"████";
               gotoxy(3,9);cout<<"████";
@@ -523,8 +523,8 @@ void AdminInforme::dibujar(GestorVentanas& gestor) {
               gotoxy(3,17);cout<<"████";
               gotoxy(3,20);cout<<"████";
               gotoxy(3,21);cout<<"████";
-              change_color(241);
-              gotoxy(3,23);cout<<"vvv";
+              change_color(113);
+              gotoxy(3,23);cout<<"vvvv";
               change_color(240);
               break;
           // Salir
@@ -534,8 +534,8 @@ void AdminInforme::dibujar(GestorVentanas& gestor) {
               gotoxy(12,4);
               cout<<"LAPTOPS USADOS";
               change_color(240);
-              change_color(241);
-              gotoxy(3,6);cout<<"^^^";
+              change_color(113);
+              gotoxy(3,6);cout<<"^^^^";
               change_color(240);
               gotoxy(3,8);cout<<"████";
               gotoxy(3,9);cout<<"████";
@@ -547,8 +547,8 @@ void AdminInforme::dibujar(GestorVentanas& gestor) {
               change_color(240);
               gotoxy(3,20);cout<<"████";
               gotoxy(3,21);cout<<"████";
-              change_color(241);
-              gotoxy(3,23);cout<<"vvv";
+              change_color(113);
+              gotoxy(3,23);cout<<"vvvv";
               change_color(240);
               break;
           case 4:
@@ -557,8 +557,8 @@ void AdminInforme::dibujar(GestorVentanas& gestor) {
               gotoxy(12,4);
               cout<<"HORARIO PICO";
               change_color(240);
-              change_color(241);
-              gotoxy(3,6);cout<<"^^^";
+              change_color(113);
+              gotoxy(3,6);cout<<"^^^^";
               change_color(240);
               gotoxy(3,8);cout<<"████";
               gotoxy(3,9);cout<<"████";
@@ -569,8 +569,8 @@ void AdminInforme::dibujar(GestorVentanas& gestor) {
               change_color(244);
               gotoxy(3,20);cout<<"████";
               gotoxy(3,21);cout<<"████";
-              change_color(241);
-              gotoxy(3,23);cout<<"vvv";
+              change_color(113);
+              gotoxy(3,23);cout<<"vvvv";
               change_color(240);
               break;
       }
