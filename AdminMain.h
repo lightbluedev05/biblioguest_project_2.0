@@ -17,6 +17,7 @@ class AdminMain{
     void sanciones(GestorVentanas& gestor);
     void ingresar_codigo(GestorVentanas& gestor);
     void confirmar(GestorVentanas& gestor);
+    void buscaralumno(GestorVentanas& gestor);
 };
 
 

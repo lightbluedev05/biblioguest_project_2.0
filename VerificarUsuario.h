@@ -26,10 +26,10 @@ void guardardatos(const vector<vector<string>>& users) {
     ofstream archivoSalida("datos.txt");
     
     for (int i = 0; i < users.size(); ++i) {
-        for (int j = 0; j < users[i].size(); ++j) {
-            archivoSalida << users[i][j] << " ";
+        archivoSalida << users[i][0] << " " << users[i][1] << users[i][2];
+        if(i != users.size() - 1){
+            archivoSalida << "\n";
         }
-        archivoSalida << endl;
     }
     
     archivoSalida.close();
