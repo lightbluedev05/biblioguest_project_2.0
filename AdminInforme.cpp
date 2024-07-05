@@ -487,6 +487,21 @@ void AdminInforme::dibujar(GestorVentanas& gestor) {
               gotoxy(12,4);
               cout<<"ALUMNOS CON MAS RESERVAS";
               change_color(240);
+              change_color(241);
+              gotoxy(3,6);cout<<"^^^";
+              change_color(244);
+              gotoxy(3,8);cout<<"████";
+              gotoxy(3,9);cout<<"████";
+              change_color(240);
+              gotoxy(3,12);cout<<"████";
+              gotoxy(3,13);cout<<"████";
+              gotoxy(3,16);cout<<"████";
+              gotoxy(3,17);cout<<"████";
+              gotoxy(3,20);cout<<"████";
+              gotoxy(3,21);cout<<"████";
+              change_color(241);
+              gotoxy(3,23);cout<<"vvv";
+              change_color(240);
               break;
           // Ver tabla
           case 2:
@@ -494,6 +509,22 @@ void AdminInforme::dibujar(GestorVentanas& gestor) {
               change_color(244);
               gotoxy(12,4);   
               cout<<"CUBICULOS USADOS";
+              change_color(240);
+              change_color(241);
+              gotoxy(3,6);cout<<"^^^";
+              change_color(240);
+              gotoxy(3,8);cout<<"████";
+              gotoxy(3,9);cout<<"████";
+              change_color(244);
+              gotoxy(3,12);cout<<"████";
+              gotoxy(3,13);cout<<"████";
+              change_color(240);
+              gotoxy(3,16);cout<<"████";
+              gotoxy(3,17);cout<<"████";
+              gotoxy(3,20);cout<<"████";
+              gotoxy(3,21);cout<<"████";
+              change_color(241);
+              gotoxy(3,23);cout<<"vvv";
               change_color(240);
               break;
           // Salir
@@ -503,12 +534,43 @@ void AdminInforme::dibujar(GestorVentanas& gestor) {
               gotoxy(12,4);
               cout<<"LAPTOPS USADOS";
               change_color(240);
+              change_color(241);
+              gotoxy(3,6);cout<<"^^^";
+              change_color(240);
+              gotoxy(3,8);cout<<"████";
+              gotoxy(3,9);cout<<"████";
+              gotoxy(3,12);cout<<"████";
+              gotoxy(3,13);cout<<"████";
+              change_color(244);
+              gotoxy(3,16);cout<<"████";
+              gotoxy(3,17);cout<<"████";
+              change_color(240);
+              gotoxy(3,20);cout<<"████";
+              gotoxy(3,21);cout<<"████";
+              change_color(241);
+              gotoxy(3,23);cout<<"vvv";
+              change_color(240);
               break;
           case 4:
               limpiar();
               change_color(244);
               gotoxy(12,4);
               cout<<"HORARIO PICO";
+              change_color(240);
+              change_color(241);
+              gotoxy(3,6);cout<<"^^^";
+              change_color(240);
+              gotoxy(3,8);cout<<"████";
+              gotoxy(3,9);cout<<"████";
+              gotoxy(3,12);cout<<"████";
+              gotoxy(3,13);cout<<"████";
+              gotoxy(3,16);cout<<"████";
+              gotoxy(3,17);cout<<"████";
+              change_color(244);
+              gotoxy(3,20);cout<<"████";
+              gotoxy(3,21);cout<<"████";
+              change_color(241);
+              gotoxy(3,23);cout<<"vvv";
               change_color(240);
               break;
       }
