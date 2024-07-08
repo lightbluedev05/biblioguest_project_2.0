@@ -24,14 +24,14 @@ bool verificar(const string& cod_ingresado, const string& contra_ingresado, cons
 // Función para guardar los datos en el archivo datos.txt
 void guardardatos(const vector<vector<string>>& users) {
     ofstream archivoSalida("datos.txt");
-    
+
     for (int i = 0; i < users.size(); ++i) {
         archivoSalida << users[i][0] << " " << users[i][1] << users[i][2];
         if(i != users.size() - 1){
             archivoSalida << "\n";
         }
     }
-    
+
     archivoSalida.close();
 }
 
@@ -78,6 +78,7 @@ void escribir(const string& n) {
 // Función para verificar el usuario ingresado
 int VerificarUsuario(const string& cod_ingresado, const string& contra_ingresado, GestorVentanas& gestor) {
     // Cargar usuarios desde el archivo datos.txt a users
+    users.clear();
 	ifstream archivo("datos.txt");
 	string line;
 
