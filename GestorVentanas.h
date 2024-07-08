@@ -16,6 +16,7 @@
 #include "GestionarLaptops.h"
 #include "GestionarCubiculos.h"
 #include "AdminHistory.h"
+#include "AdminInforme.h"
 
 
 //LLAMAR A CADA CLASE DE VENTANA AÑADIDA
@@ -32,6 +33,7 @@ class AdminVerificar;
 class GestionarLaptops;
 class GestionarCubiculos;
 class AdminHistory;
+class AdminInforme;
 
 //AGREGAR LA VENTANA EN EL ENUM
 enum class Ventanas{
@@ -47,7 +49,8 @@ enum class Ventanas{
   ADMINVERIFICAR,
   GESTIONARLAPTOPS,
   GESTIONARCUBICULOS,
-  ADMINHISTORY
+  ADMINHISTORY,
+  ADMININFORME
 };
 
 class GestorVentanas {
@@ -76,6 +79,7 @@ class GestorVentanas {
     GestionarLaptops* gestionar_laptops;
     GestionarCubiculos* gestionar_cubiculos;
     AdminHistory* admin_history;
+    AdminInforme* admin_informe;
 };
 
 #endif

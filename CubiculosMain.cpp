@@ -65,6 +65,8 @@ void CubiculosMain::mostrar() {
   cout<<"UTILIZE LAS FLECHAS PARA SELECCIONAR LAS";
   gotoxy(48, 21);
   cout<<"OPCIONES (ARRIBA Y ABAJO)";
+
+  hide_cursor();
 }
 
 

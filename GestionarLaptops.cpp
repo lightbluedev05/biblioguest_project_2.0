@@ -114,9 +114,9 @@ void GestionarLaptops::ver_laptops(){
     for(int i=20*(ventana_actual-1); i<final; i++){
       int color;
       if(i%2==0){
-        color=128;
-      } else {
         color=112;
+      } else {
+        color=240;
       }
 
       change_color(color);
