@@ -156,6 +156,7 @@ void UserLogin::validar_credenciales(GestorVentanas& gestor){
       gotoxy(37, 17);
       cout<<"acerquese a recepcion para solucionar el problema";
       getch();
+      gestor.cambiar_ventana(Ventanas::MAINWINDOW);
       break;
     case 4:
       //$ NO ES ALUMNO
@@ -174,8 +175,25 @@ void UserLogin::validar_credenciales(GestorVentanas& gestor){
       cout<<"Si el error persiste, acerquese a recepcion";
       change_color(240);
       getch();
+      gestor.cambiar_ventana(Ventanas::MAINWINDOW);
       break;
   }
+}
+
+void ventana_sancion(){
+      gotoxy(45, 10);
+      cout<<"+------------------------------+";
+      gotoxy(45, 11);
+      cout<<"|         ESTAS BETADO         |";
+      gotoxy(45, 12);
+      cout<<"+------------------------------+";
+      change_color(244);
+      gotoxy(43, 14);
+      cout<<"Haz alcanzado el limite de sanciones,";
+      gotoxy(35, 15);
+      cout<<"Por favor acerquese a recepcion para solucionar el problema";
+      change_color(240);
+      getch();
 }
 
 void UserLogin::seleccionar_opcion(GestorVentanas& gestor){
@@ -228,6 +246,7 @@ void UserLogin::seleccionar_opcion(GestorVentanas& gestor){
 
   switch(opc){
     case 1: {
+      UserLogin::sanciones = "0";
       ifstream file_sanciones("sanciones.csv");
       string linea_h;
 
@@ -255,11 +274,8 @@ void UserLogin::seleccionar_opcion(GestorVentanas& gestor){
 
       if(UserLogin::sanciones=="3"){
         system("cls");
-        change_color(244);
-        gotoxy(45, 10);
-        cout<<"ESTAS BETADO DEL SISTEMA";
-        change_color(240);
-        getch();
+        ventana_sancion();
+        gestor.cambiar_ventana(Ventanas::MAINWINDOW);
       }else{
         UserLogin::validar_credenciales(gestor);
       }
