@@ -35,6 +35,8 @@ void LaptopMain::mostrar() {
   cout<<"UTILIZE LAS FLECHAS PARA SELECCIONAR LAS";
   gotoxy(48, 21);
   cout<<"OPCIONES (ARRIBA Y ABAJO)";
+
+  hide_cursor();
 }
 
 void dibujar_ventana(int ventana_actual, vector<vector<string>> data, int numero_ventanas){
@@ -171,7 +173,6 @@ void LaptopMain::listar_laptops() {
     }
   }
 
-  getch();
 }
 
 void LaptopMain::seleccionar_opcion(GestorVentanas& gestor) {

@@ -180,7 +180,7 @@ void UserMain::mostrar_reservas(GestorVentanas& gestor){
           break;
       }
       gotoxy(65,14);
-      cout<<"Cubiculo: "<<codigo_laptop;
+      cout<<"Laptop: "<<codigo_laptop;
       gotoxy(65,15);
       cout<<"Horario: "<<horario_laptop;
       gotoxy(65,16);
